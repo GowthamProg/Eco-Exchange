@@ -887,20 +887,20 @@
     <script>
 
 
-        let selectedCategory = null;
+        selectedCategory = null;
         document.querySelectorAll('.category-card').forEach(card => {
             card.addEventListener('click', () => {
-                const categoryName = card.querySelector('h3').textContent.trim();
+                categoryName = card.querySelector('h3').textContent.trim();
                 selectedCategory = categoryName;
                 console.log("Selected category:", selectedCategory);
-
+                // console.log(selectedCategory);
                 // Optional: Highlight selected card
                 document.querySelectorAll('.category-card').forEach(c => c.classList.remove('ring', 'ring-offset-2', 'ring-blue-500'));
                 card.classList.add('ring', 'ring-offset-2', 'ring-blue-500');
             });
         });
 
-    let currentStep = 1;
+    currentStep = 1;
     const steps = document.querySelectorAll('[id^="step-"]');
     const progressSteps = document.querySelectorAll('.progress-step');
     const progressBar = document.getElementById('progress-bar');
