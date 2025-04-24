@@ -633,66 +633,6 @@
                             </div>
                             <p class="text-xs text-gray-500 mt-1">Our team will review your listing and may suggest a different price based on market value.</p>
                         </div>
-                        
-                        <div class="mb-6">
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Payment Method*</label>
-                            <div class="space-y-2">
-                                <label class="payment-method flex items-center p-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
-                                    <input type="radio" name="payment" class="mr-3" checked>
-                                    <div class="flex-1">
-                                        <div class="flex items-center">
-                                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/UPI-Logo-vector.svg/1200px-UPI-Logo-vector.svg.png" class="h-5 mr-2">
-                                            <span>UPI Payment</span>
-                                        </div>
-                                        <p class="text-xs text-gray-500 mt-1">Instant transfer to any UPI ID</p>
-                                    </div>
-                                </label>
-                                
-                                <label class="payment-method flex items-center p-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
-                                    <input type="radio" name="payment" class="mr-3">
-                                    <div class="flex-1">
-                                        <div class="flex items-center">
-                                            <i class="fas fa-credit-card text-gray-500 mr-2"></i>
-                                            <span>Credit/Debit Card</span>
-                                        </div>
-                                        <p class="text-xs text-gray-500 mt-1">Secure card payment</p>
-                                    </div>
-                                </label>
-                                
-                                <label class="payment-method flex items-center p-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
-                                    <input type="radio" name="payment" class="mr-3">
-                                    <div class="flex-1">
-                                        <div class="flex items-center">
-                                            <i class="fas fa-university text-gray-500 mr-2"></i>
-                                            <span>Net Banking</span>
-                                        </div>
-                                        <p class="text-xs text-gray-500 mt-1">Direct bank transfer</p>
-                                    </div>
-                                </label>
-                                
-                                <label class="payment-method flex items-center p-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
-                                    <input type="radio" name="payment" class="mr-3">
-                                    <div class="flex-1">
-                                        <div class="flex items-center">
-                                            <i class="fas fa-wallet text-gray-500 mr-2"></i>
-                                            <span>Digital Wallets</span>
-                                        </div>
-                                        <p class="text-xs text-gray-500 mt-1">Paytm, PhonePe, etc.</p>
-                                    </div>
-                                </label>
-                                
-                                <label class="payment-method flex items-center p-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
-                                    <input type="radio" name="payment" class="mr-3">
-                                    <div class="flex-1">
-                                        <div class="flex items-center">
-                                            <i class="fas fa-money-bill-wave text-gray-500 mr-2"></i>
-                                            <span>Cash on Pickup</span>
-                                        </div>
-                                        <p class="text-xs text-gray-500 mt-1">Pay when we collect the item</p>
-                                    </div>
-                                </label>
-                            </div>
-                        </div>
                     </div>
                     
                     <div>
@@ -897,6 +837,14 @@
                 card.classList.add('ring', 'ring-offset-2', 'ring-blue-500');
             });
         });
+        
+        selectedCategory001 = null;
+        let nextButton0 = document.getElementById('next-button');
+        nextButton0.addEventListener('click', () => {
+            selectedCategory001 =selectedCategory;
+            console.log("selectedCategory:", selectedCategory001);
+        });
+
 
         let selectedProductName = null;
         selectedCondition = null;
@@ -969,7 +917,35 @@
             expectedAmount = document.getElementById('expectedPrice').value.trim();
             console.log("Expected Price:", expectedAmount);
         });
+
+        nextButton4.addEventListener('click', async() => {
+            setTimeout(async()=>{
+                console.log("Final: ",selectedCategory001, selectedProductName, selectedCondition, weight, containsBatteries, hazardousMaterials, providedDescription, picupdate, picupinstructions, selectedTimeSlot, expectedAmount);
+                const dataToSend = {category: selectedCategory001,productName: selectedProductName,condition: selectedCondition,
+                weight: weight,containsBatteries: containsBatteries,hazardousMaterials: hazardousMaterials,description: providedDescription,
+                pickupDate: picupdate,pickupInstructions: picupinstructions,timeSlot: selectedTimeSlot,expectedAmount: expectedAmount};
+
+                try {
+                const response = await fetch('http://localhost:3000/ewasteform', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dataToSend)
+                });
+
+            const result = await response.json();
+            if(result.ok)
+                console.log('response saved: ', result);
+            else 
+                console.log('response not saved :', result);
+        } catch (error) {
+            console.error('Error sending data:', error);
+        }
+            },10);
+        });
         
+
+
+
 
     currentStep = 1;
     const steps = document.querySelectorAll('[id^="step-"]');

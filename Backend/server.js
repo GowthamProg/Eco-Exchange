@@ -50,6 +50,24 @@ app.post('/login', async (req, res) => {
     }
 });
 
+app.post('/ewasteform', async (req, res) => {
+    try {
+      const listingData = req.body;
+      console.log("Received data:", listingData);
+  
+    //   const userCollection = await connectToDatabase();
+    //   const result = await userCollection.insertOne(listingData);
+  
+    //  res.status(200).json({ message: "Listing saved", id: result.insertedId });
+     res.status(200).json({ message: "Listing saved"});
+    } catch (error) {
+      console.error("Error saving listing:", error);
+      res.status(500).json({ message: "Failed to save listing", error });
+    }
+  });
+  
+
+
 
 // ✅ Start server
 const PORT = process.env.PORT || 3000;
