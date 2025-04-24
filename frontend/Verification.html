@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volunteer Registration | EcoRecycle</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 14px;
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        .photo-upload {
+            border: 2px dashed #cbd5e0;
+            transition: all 0.3s ease;
+        }
+        .photo-upload:hover {
+            border-color: #10b981;
+        }
+        input:invalid, select:invalid {
+            border-color: #f87171;
+        }
+        input:valid, select:valid {
+            border-color: #34d399;
+        }
+        .shake {
+            animation: shake 0.5s;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        #application-preview {
+            background-color: white;
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            display: none;
+        }
+        .preview-header {
+            border-bottom: 2px solid #10b981;
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .preview-section {
+            margin-bottom: 1.5rem;
+        }
+        .preview-section-title {
+            font-weight: bold;
+            color: #10b981;
+            margin-bottom: 0.5rem;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 0.5rem;
+        }
+        .preview-row {
+            display: flex;
+            margin-bottom: 0.5rem;
+        }
+        .preview-label {
+            font-weight: 600;
+            min-width: 200px;
+            color: #4b5563;
+        }
+        .preview-value {
+            flex-grow: 1;
+        }
+        .preview-photo {
+            width: 120px;
+            height: 150px;
+            object-fit: cover;
+            border: 1px solid #e5e7eb;
+            margin-top: 0.5rem;
+        }
+        .watermark {
+            position: absolute;
+            opacity: 0.1;
+            font-size: 72px;
+            color: #10b981;
+            transform: rotate(-30deg);
+            pointer-events: none;
+            z-index: -1;
+        }
+        .hero-section {
+            background: linear-gradient(rgba(3, 105, 161, 0.7), rgba(5, 150, 105, 0.7)), url('/assets/images/vol.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="gradient-bg text-white shadow-lg">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-recycle text-3xl"></i>
+                    <h1 class="text-2xl font-bold">EcoRecycle</h1>
+                </div>
+                <nav>
+                    <ul class="flex space-x-6">
+                        <li><a href="#" class="hover:underline">Home</a></li>
+                        <li><a href="#" class="hover:underline">About</a></li>
+                        <li><a href="#" class="hover:underline">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <div class="max-w-4xl mx-auto">
+            <!-- Page Header -->
+            <div class="text-center mb-10">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-3">Become a Volunteer</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Join our mission to responsibly recycle e-waste and create a sustainable future. Your contribution matters!
+                </p>
+            </div>
+
+            <!-- Registration Form -->
+            <form id="volunteer-form" class="bg-white rounded-xl shadow-md p-6 md:p-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Personal Information Section -->
+                    <div class="md:col-span-2">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4 border-b pb-2">Personal Information</h3>
+                    </div>
+
+                    <!-- Full Name -->
+                    <div>
+                        <label for="full-name" class="block text-gray-700 font-medium mb-2">
+                            Full Name <span class="text-red-500">*</span>
+                        </label>
+                        <input type="text" id="full-name" name="full-name" required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                            placeholder="Enter your full name">
+                    </div>
+
+                    <!-- Email Address -->
+                    <div>
+                        <label for="email" class="block text-gray-700 font-medium mb-2">
+                            Email Address <span class="text-red-500">*</span>
+                        </label>
+                        <input type="email" id="email" name="email" required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                            placeholder="example@domain.com">
+                    </div>
+
+                    <!-- Phone Number -->
+                    <div>
+                        <label for="phone" class="block text-gray-700 font-medium mb-2">
+                            Phone Number <span class="text-red-500">*</span>
+                        </label>
+                        <input type="tel" id="phone" name="phone" required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                            placeholder="+91 9876543210" pattern="[+0-9\s]{10,15}">
+                    </div>
+
+                    <!-- Date of Birth -->
+                    <div>
+                        <label for="dob" class="block text-gray-700 font-medium mb-2">
+                            Date of Birth <span class="text-red-500">*</span>
+                        </label>
+                        <input type="date" id="dob" name="dob" required max="2005-01-01"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500">
+                    </div>
+
+                    <!-- Gender -->
+                    <div>
+                        <label for="gender" class="block text-gray-700 font-medium mb-2">
+                            Gender <span class="text-red-500">*</span>
+                        </label>
+                        <select id="gender" name="gender" required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500">
+                            <option value="" disabled selected>Select your gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                            <option value="prefer-not-to-say">Prefer not to say</option>
+                        </select>
+                    </div>
+
+                    <!-- Nationality -->
+                    <div>
+                        <label for="nationality" class="block text-gray-700 font-medium mb-2">
+                            Nationality <span class="text-red-500">*</span>
+                        </label>
+                        <input type="text" id="nationality" name="nationality" required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                            placeholder="Your nationality">
+                    </div>
+
+                    <!-- Address Section -->
+                    <div class="md:col-span-2 mt-4">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4 border-b pb-2">Address Information</h3>
+                    </div>
+
+                    <!-- Permanent Address -->
+                    <div class="md:col-span-2">
+                        <label for="address" class="block text-gray-700 font-medium mb-2">
+                            Permanent Address <span class="text-red-500">*</span>
+                        </label>
+                        <textarea id="address" name="address" rows="3" required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                            placeholder="House no, Street, City, State, Pincode"></textarea>
+                    </div>
+
+                    <!-- Current Location / Area of Operation -->
+                    <div class="md:col-span-2">
+                        <label for="location" class="block text-gray-700 font-medium mb-2">
+                            Current Location / Area of Operation <span class="text-red-500">*</span>
+                            <span class="tooltip ml-1">
+                                <i class="fas fa-info-circle text-gray-400"></i>
+                                <span class="tooltiptext">Where you'll primarily be volunteering</span>
+                            </span>
+                        </label>
+                        <input type="text" id="location" name="location" required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                            placeholder="City or neighborhood where you'll volunteer">
+                    </div>
+
+                    <!-- Identification Section -->
+                    <div class="md:col-span-2 mt-4">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4 border-b pb-2">Identification Details</h3>
+                    </div>
+
+                    <!-- Aadhaar Number -->
+                    <div>
+                        <label for="aadhaar" class="block text-gray-700 font-medium mb-2">
+                            Aadhaar Number <span class="text-red-500">*</span>
+                            <span class="tooltip ml-1">
+                                <i class="fas fa-info-circle text-gray-400"></i>
+                                <span class="tooltiptext">12-digit Aadhaar number (or equivalent national ID)</span>
+                            </span>
+                        </label>
+                        <input type="text" id="aadhaar" name="aadhaar" required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                            placeholder="1234 5678 9012" pattern="[0-9\s]{12,14}">
+                    </div>
+
+                    <!-- PAN Card Number -->
+                    <div>
+                        <label for="pan" class="block text-gray-700 font-medium mb-2">
+                            PAN Card Number <span class="text-red-500">*</span>
+                        </label>
+                        <input type="text" id="pan" name="pan" required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 uppercase"
+                            placeholder="ABCDE1234F" pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}">
+                    </div>
+
+                    <!-- Occupation -->
+                    <div class="md:col-span-2">
+                        <label for="occupation" class="block text-gray-700 font-medium mb-2">
+                            Occupation <span class="text-red-500">*</span>
+                        </label>
+                        <input type="text" id="occupation" name="occupation" required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                            placeholder="Your current profession">
+                    </div>
+
+                    <!-- Experience/Motivation -->
+                    <div class="md:col-span-2">
+                        <label for="experience" class="block text-gray-700 font-medium mb-2">
+                            Brief Experience or Motivation <span class="text-red-500">*</span>
+                            <span class="tooltip ml-1">
+                                <i class="fas fa-info-circle text-gray-400"></i>
+                                <span class="tooltiptext">Tell us why you want to volunteer with us (50-200 words)</span>
+                            </span>
+                        </label>
+                        <textarea id="experience" name="experience" rows="5" required minlength="50" maxlength="1000"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                            placeholder="Share your relevant experience or what motivates you to join our e-waste recycling initiative"></textarea>
+                        <p class="text-sm text-gray-500 mt-1" id="char-count">0/1000 characters</p>
+                    </div>
+
+                    <!-- Photo Upload -->
+                    <div class="md:col-span-2">
+                        <label for="photo" class="block text-gray-700 font-medium mb-2">
+                            Recent Passport-Size Photo <span class="text-red-500">*</span>
+                            <span class="tooltip ml-1">
+                                <i class="fas fa-info-circle text-gray-400"></i>
+                                <span class="tooltiptext">Clear frontal photo with plain background (max 2MB)</span>
+                            </span>
+                        </label>
+                        <div class="photo-upload rounded-lg p-6 text-center cursor-pointer" id="photo-upload-area">
+                            <input type="file" id="photo" name="photo" accept="image/*" class="hidden" required>
+                            <div id="photo-preview" class="flex flex-col items-center justify-center">
+                                <i class="fas fa-camera text-4xl text-gray-400 mb-3"></i>
+                                <p class="text-gray-600 mb-2">Click to upload your passport-size photo</p>
+                                <p class="text-sm text-gray-500">JPEG or PNG, max 2MB</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Terms and Conditions -->
+                    <div class="md:col-span-2 mt-4">
+                        <div class="flex items-start">
+                            <input type="checkbox" id="terms" name="terms" required
+                                class="mt-1 mr-3 h-5 w-5 text-emerald-600 rounded focus:ring-emerald-500">
+                            <label for="terms" class="text-gray-700">
+                                I agree to the <a href="#" class="text-emerald-600 hover:underline">Terms & Conditions</a> and 
+                                <a href="#" class="text-emerald-600 hover:underline">Privacy Policy</a>. I confirm that all provided 
+                                information is accurate and understand that EcoRecycle may contact me for verification purposes.
+                                <span class="text-red-500">*</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Buttons -->
+                <div class="flex justify-between mt-8">
+                    <button type="reset" id="reset-btn"
+                        class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-3 rounded-lg transition-colors duration-300">
+                        <i class="fas fa-redo mr-2"></i> Reset Form
+                    </button>
+                    <button type="submit" id="submit-btn"
+                        class="bg-emerald-500 hover:bg-emerald-600 text-white px-8 py-3 rounded-lg transition-colors duration-300">
+                        <i class="fas fa-paper-plane mr-2"></i> Submit Application
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Hidden preview for PDF generation -->
+        <div id="application-preview">
+            <div class="watermark">EcoRecycle</div>
+            <div class="preview-header">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h1 class="text-3xl font-bold text-emerald-600">EcoRecycle</h1>
+                        <p class="text-gray-600">Responsible e-waste recycling initiative</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-sm text-gray-500">Application Date: <span id="preview-date"></span></p>
+                        <p class="text-sm text-gray-500">Reference ID: <span id="preview-ref-id"></span></p>
+                    </div>
+                </div>
+                <h2 class="text-2xl font-bold mt-4">Volunteer Application</h2>
+            </div>
+
+            <div class="preview-section">
+                <h3 class="preview-section-title">Personal Information</h3>
+                <div class="preview-row">
+                    <div class="preview-label">Full Name:</div>
+                    <div class="preview-value" id="preview-full-name"></div>
+                </div>
+                <div class="preview-row">
+                    <div class="preview-label">Email:</div>
+                    <div class="preview-value" id="preview-email"></div>
+                </div>
+                <div class="preview-row">
+                    <div class="preview-label">Phone:</div>
+                    <div class="preview-value" id="preview-phone"></div>
+                </div>
+                <div class="preview-row">
+                    <div class="preview-label">Date of Birth:</div>
+                    <div class="preview-value" id="preview-dob"></div>
+                </div>
+                <div class="preview-row">
+                    <div class="preview-label">Gender:</div>
+                    <div class="preview-value" id="preview-gender"></div>
+                </div>
+                <div class="preview-row">
+                    <div class="preview-label">Nationality:</div>
+                    <div class="preview-value" id="preview-nationality"></div>
+                </div>
+            </div>
+
+            <div class="preview-section">
+                <h3 class="preview-section-title">Address Information</h3>
+                <div class="preview-row">
+                    <div class="preview-label">Permanent Address:</div>
+                    <div class="preview-value" id="preview-address"></div>
+                </div>
+                <div class="preview-row">
+                    <div class="preview-label">Current Location:</div>
+                    <div class="preview-value" id="preview-location"></div>
+                </div>
+            </div>
+
+            <div class="preview-section">
+                <h3 class="preview-section-title">Identification Details</h3>
+                <div class="preview-row">
+                    <div class="preview-label">Aadhaar Number:</div>
+                    <div class="preview-value" id="preview-aadhaar"></div>
+                </div>
+                <div class="preview-row">
+                    <div class="preview-label">PAN Card Number:</div>
+                    <div class="preview-value" id="preview-pan"></div>
+                </div>
+                <div class="preview-row">
+                    <div class="preview-label">Occupation:</div>
+                    <div class="preview-value" id="preview-occupation"></div>
+                </div>
+            </div>
+
+            <div class="preview-section">
+                <h3 class="preview-section-title">Volunteer Details</h3>
+                <div class="preview-row">
+                    <div class="preview-label">Experience/Motivation:</div>
+                    <div class="preview-value" id="preview-experience"></div>
+                </div>
+                <div class="preview-row">
+                    <div class="preview-label">Photo:</div>
+                    <div class="preview-value">
+                        <img id="preview-photo" class="preview-photo" src="" alt="Applicant Photo">
+                    </div>
+                </div>
+            </div>
+
+            <div class="preview-section">
+                <h3 class="preview-section-title">Organization Details</h3>
+                <div class="preview-row">
+                    <div class="preview-label">Organization:</div>
+                    <div class="preview-value">EcoRecycle India</div>
+                </div>
+                <div class="preview-row">
+                    <div class="preview-label">Address:</div>
+                    <div class="preview-value">123 Green Tech Park, Bangalore, Karnataka - 560001</div>
+                </div>
+                <div class="preview-row">
+                    <div class="preview-label">Contact:</div>
+                    <div class="preview-value">+91 1800 123 4567 | volunteer@ecorecycle.in</div>
+                </div>
+                <div class="preview-row">
+                    <div class="preview-label">Website:</div>
+                    <div class="preview-value">www.ecorecycle.in</div>
+                </div>
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-gray-200 text-sm text-gray-500">
+                <p>This is an automatically generated application receipt. Please keep this for your records.</p>
+                <p class="mt-2">Application status can be checked at www.ecorecycle.in/volunteer-status with your reference ID.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl shadow-xl p-8 max-w-md w-full mx-4 transform transition-all duration-300 scale-95">
+            <div class="text-center">
+                <div class="w-20 h-20 rounded-full bg-emerald-100 flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-check text-emerald-600 text-3xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-3">Application Submitted!</h3>
+                <p class="text-gray-600 mb-6">Thank you for your interest in volunteering with EcoRecycle. Your application has been received and is under review.</p>
+                
+                <div class="bg-gray-50 rounded-lg p-4 mb-6 text-left">
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-barcode text-emerald-500 mr-2"></i>
+                        <span class="font-medium">Reference ID:</span>
+                        <span class="ml-2 font-mono" id="reference-id">ERV-2023-58742</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-envelope text-emerald-500 mr-2"></i>
+                        <span class="font-medium">Confirmation sent to:</span>
+                        <span class="ml-2" id="confirmation-email">user@example.com</span>
+                    </div>
+                </div>
+                
+                <div class="flex justify-center space-x-4">
+                    <button id="close-modal" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-lg transition-colors duration-300">
+                        Close <i class="fas fa-times ml-2"></i>
+                    </button>
+                    <button id="download-pdf" class="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-lg transition-colors duration-300">
+                        <i class="fas fa-download mr-2"></i> Download PDF
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">EcoRecycle</h4>
+                    <p class="text-gray-400">Responsible e-waste recycling for a sustainable future.</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Home</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Volunteer</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Recycling Centers</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">About Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Contact</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-center">
+                            <i class="fas fa-map-marker-alt mr-2 text-gray-400"></i>
+                            <span class="text-gray-400">Bangalore, India</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone mr-2 text-gray-400"></i>
+                            <span class="text-gray-400">+91 1800 123 4567</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-2 text-gray-400"></i>
+                            <span class="text-gray-400">volunteer@ecorecycle.in</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Follow Us</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-emerald-500 transition-colors duration-300">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-emerald-500 transition-colors duration-300">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-emerald-500 transition-colors duration-300">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-emerald-500 transition-colors duration-300">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-400">
+                <p>&copy; 2023 EcoRecycle India. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/js/components/navbar.js"></script>
+    <script src="/js/verification.js"></script>
+</body>
+</html> 

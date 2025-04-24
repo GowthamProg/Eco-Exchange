@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account | EcoExchange</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 50%, #bbf7d0 100%);
+            min-height: 100vh;
+        }
+        
+        .form-section {
+            transition: all 0.3s ease;
+        }
+        
+        .form-section:hover {
+            transform: translateY(-2px);
+        }
+        
+        .required-field::after {
+            content: "*";
+            color: #ef4444;
+            margin-left: 4px;
+        }
+        
+        .input-field {
+            transition: all 0.3s ease;
+        }
+        
+        .input-field:focus {
+            box-shadow: 0 0 0 2px rgba(134, 239, 172, 0.5);
+        }
+        
+        .floating-label {
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+        
+        .input-field:focus + .floating-label,
+        .input-field:not(:placeholder-shown) + .floating-label {
+            transform: translateY(-24px) scale(0.85);
+            color: #22c55e;
+        }
+        
+        .form-section-content {
+            display: none;
+        }
+        
+        .form-section-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #86efac 0%, #4ade80 100%);
+        }
+        
+        .progress-bar {
+            height: 6px;
+            transition: width 0.6s ease;
+        }
+        
+        .progress-step {
+            width: 30px;
+            height: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        .progress-step.active {
+            background-color: #10b981;
+            color: white;
+        }
+        
+        .progress-step.completed {
+            background-color: #10b981;
+            color: white;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+    <!-- Back Button -->
+    <a href="index.html" class="absolute top-4 left-4 text-emerald-600 hover:text-emerald-800 transition-colors duration-300">
+        <i class="fas fa-arrow-left text-xl"></i>
+        <span class="ml-2 font-medium">Back to Home</span>
+    </a>
+
+    <div class="w-full max-w-4xl bg-white rounded-2xl shadow-xl overflow-hidden">
+        <div class="p-8">
+            <!-- Progress Bar -->
+            <div class="mb-8">
+                <div class="flex justify-between items-center mb-2">
+                    <div class="flex space-x-2">
+                        <div class="progress-step rounded-full border-2 border-emerald-500 flex items-center justify-center font-bold active" data-step="basic">1</div>
+                        <div class="progress-step rounded-full border-2 border-gray-300 flex items-center justify-center font-bold" data-step="location">2</div>
+                        <div class="progress-step rounded-full border-2 border-gray-300 flex items-center justify-center font-bold" data-step="payment">3</div>
+                        <div class="progress-step rounded-full border-2 border-gray-300 flex items-center justify-center font-bold" data-step="legal">4</div>
+                    </div>
+                    <span class="text-sm text-gray-600">Step <span id="current-step">1</span> of 4</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2">
+                    <div id="progress-bar" class="progress-bar bg-emerald-500 rounded-full h-2" style="width: 25%"></div>
+                </div>
+            </div>
+
+            <!-- Header -->
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-bold text-gray-800 mb-2">Create Your Account</h1>
+                <p class="text-gray-600">Join EcoExchange and start your eco-friendly journey</p>
+            </div>
+
+            <!-- Signup Form -->
+            <form id="signupForm" class="space-y-8">
+                <!-- Form Sections -->
+                <div class="form-sections">
+                    <!-- Basic Details Section -->
+                    <div class="form-section-content active" id="basic-section">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                            <i class="fas fa-user-circle text-emerald-600 mr-2"></i>
+                            Basic Details
+                        </h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="relative">
+                                <input type="text" id="full-name" class="input-field w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-emerald-500" placeholder=" " required>
+                                <label for="full-name" class="floating-label absolute left-4 top-3.5 text-gray-400 required-field">Full Name</label>
+                            </div>
+                            <div class="relative">
+                                <input type="text" id="username" class="input-field w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-emerald-500" placeholder=" " required>
+                                <label for="username" class="floating-label absolute left-4 top-3.5 text-gray-400 required-field">Username</label>
+                            </div>
+                            <div class="relative">
+                                <input type="email" id="email" class="input-field w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-emerald-500" placeholder=" " required>
+                                <label for="email" class="floating-label absolute left-4 top-3.5 text-gray-400 required-field">Email Address</label>
+                            </div>
+                            <div class="relative">
+                                <input type="tel" id="phone" class="input-field w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-emerald-500" placeholder=" " required>
+                                <label for="phone" class="floating-label absolute left-4 top-3.5 text-gray-400 required-field">Phone Number</label>
+                            </div>
+                            <div class="relative">
+                                <input type="password" id="password" class="input-field w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-emerald-500" placeholder=" " required minlength="8">
+                                <label for="password" class="floating-label absolute left-4 top-3.5 text-gray-400 required-field">Password</label>
+                            </div>
+                            <div class="relative">
+                                <input type="password" id="confirm-password" class="input-field w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-emerald-500" placeholder=" " required>
+                                <label for="confirm-password" class="floating-label absolute left-4 top-3.5 text-gray-400 required-field">Confirm Password</label>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-end mt-8">
+                            <button type="button" class="next-section bg-emerald-500 hover:bg-emerald-600 text-white font-medium py-3 px-6 rounded-lg transition duration-300" data-next="location">
+                                Continue <i class="fas fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Location & Identity Section -->
+                    <div class="form-section-content hidden" id="location-section">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                            <i class="fas fa-map-marker-alt text-emerald-600 mr-2"></i>
+                            Location & Identity
+                        </h2>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Address -->
+                            <div class="relative md:col-span-2">
+                                <textarea id="address" class="input-field w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-emerald-500" placeholder=" " rows="2" required></textarea>
+                                <label for="address" class="floating-label absolute left-4 top-3.5 text-gray-400 required-field">Full Address</label>
+                            </div>
+                            
+                            <!-- City -->
+                            <div class="relative">
+                                <input type="text" id="city" class="input-field w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-emerald-500" placeholder=" " required>
+                                <label for="city" class="floating-label absolute left-4 top-3.5 text-gray-400 required-field">City</label>
+                            </div>
+                            
+                            <!-- Pincode -->
+                            <div class="relative">
+                                <input type="text" id="pincode" class="input-field w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-emerald-500" placeholder=" " required>
+                                <label for="pincode" class="floating-label absolute left-4 top-3.5 text-gray-400 required-field">Pincode</label>
+                            </div>
+                            
+                            <!-- State -->
+                            <div class="relative">
+                                <input type="text" id="state" class="input-field w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-emerald-500" placeholder=" " required>
+                                <label for="state" class="floating-label absolute left-4 top-3.5 text-gray-400 required-field">State</label>
+                            </div>
+                            
+                            <!-- Country -->
+                            <div class="relative">
+                                <select id="country" class="input-field w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-emerald-500 appearance-none" required>
+                                    <option value="" selected disabled></option>
+                                    <option value="India">India</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                                <label for="country" class="floating-label absolute left-4 top-3.5 text-gray-400 required-field">Country</label>
+                            </div>
+                            
+                            <!-- Aadhaar/PAN -->
+                            <div class="relative md:col-span-2">
+                                <div class="flex flex-col md:flex-row gap-4">
+                                    <div class="relative flex-1">
+                                        <input type="text" id="aadhaar" class="input-field w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-emerald-500" placeholder=" ">
+                                        <label for="aadhaar" class="floating-label absolute left-4 top-3.5 text-gray-400">Aadhaar Number (Optional)</label>
+                                    </div>
+                                    <div class="relative flex-1">
+                                        <input type="text" id="pan" class="input-field w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-emerald-500" placeholder=" ">
+                                        <label for="pan" class="floating-label absolute left-4 top-3.5 text-gray-400">PAN Card Number (Optional)</label>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-gray-500 mt-2">At least one identity proof is required for verified accounts and payouts</p>
+                            </div>
+                            
+                            <!-- Date of Birth -->
+                            <div class="relative">
+                                <input type="date" id="dob" class="input-field w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-emerald-500" required>
+                                <label for="dob" class="floating-label absolute left-4 top-3.5 text-gray-400 required-field">Date of Birth</label>
+                            </div>
+                            
+                            <!-- Gender -->
+                            <div class="relative">
+                                <select id="gender" class="input-field w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-emerald-500">
+                                    <option value="" selected disabled></option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                    <option value="prefer-not">Prefer not to say</option>
+                                </select>
+                                <label for="gender" class="floating-label absolute left-4 top-3.5 text-gray-400">Gender (Optional)</label>
+                            </div>
+                        </div>                        
+                        <div class="flex justify-between mt-8">
+                            <button type="button" class="prev-section bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-3 px-6 rounded-lg transition duration-300" data-prev="basic">
+                                <i class="fas fa-arrow-left mr-2"></i> Back
+                            </button>
+                            <button type="button" class="next-section bg-emerald-500 hover:bg-emerald-600 text-white font-medium py-3 px-6 rounded-lg transition duration-300" data-next="payment">
+                                Continue <i class="fas fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Payment & Security Section -->
+                    <div class="form-section-content hidden" id="payment-section">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                            <i class="fas fa-credit-card text-emerald-600 mr-2"></i>
+                            Payment & Security
+                        </h2>
+                        <div class="grid grid-cols-1 gap-6">
+                            <!-- UPI ID -->
+                            <div class="relative">
+                                <input type="text" id="upi" class="input-field w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-emerald-500" placeholder=" ">
+                                <label for="upi" class="floating-label absolute left-4 top-3.5 text-gray-400">UPI ID (Optional)</label>
+                            </div>
+                            
+                            <!-- Bank Details -->
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <h3 class="font-medium text-gray-700 mb-4">Bank Account Details (Optional)</h3>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="relative">
+                                        <input type="text" id="account-number" class="input-field w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-emerald-500" placeholder=" ">
+                                        <label for="account-number" class="floating-label absolute left-4 top-3.5 text-gray-400">Account Number</label>
+                                    </div>
+                                    
+                                    <div class="relative">
+                                        <input type="text" id="account-name" class="input-field w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-emerald-500" placeholder=" ">
+                                        <label for="account-name" class="floating-label absolute left-4 top-3.5 text-gray-400">Account Holder Name</label>
+                                    </div>
+                                    
+                                    <div class="relative">
+                                        <input type="text" id="ifsc" class="input-field w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-emerald-500" placeholder=" ">
+                                        <label for="ifsc" class="floating-label absolute left-4 top-3.5 text-gray-400">IFSC Code</label>
+                                    </div>
+                                    <div class="relative">
+                                        <input type="text" id="bank-name" class="input-field w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-emerald-500" placeholder=" ">
+                                        <label for="bank-name" class="floating-label absolute left-4 top-3.5 text-gray-400">Bank Name</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- EcoPIN -->
+                            <div class="relative">
+                                <input type="password" id="ecopin" class="input-field w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-emerald-500" placeholder=" " minlength="4" maxlength="6">
+                                <label for="ecopin" class="floating-label absolute left-4 top-3.5 text-gray-400">Create EcoPIN (4-6 digits)</label>
+                                <p class="text-xs text-gray-500 mt-2">This PIN will be used for secure transactions on the platform</p>
+                            </div>
+                        </div>
+                        <div class="flex justify-between mt-8">
+                            <button type="button" class="prev-section bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-3 px-6 rounded-lg transition duration-300" data-prev="location">
+                                <i class="fas fa-arrow-left mr-2"></i> Back
+                            </button>
+                            <button type="button" class="next-section bg-emerald-500 hover:bg-emerald-600 text-white font-medium py-3 px-6 rounded-lg transition duration-300" data-next="legal">
+                                Continue <i class="fas fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Legal & Consent Section -->
+                    <div class="form-section-content hidden" id="legal-section">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                            <i class="fas fa-shield-alt text-emerald-600 mr-2"></i>
+                            Legal & Consent
+                        </h2>
+                        <div class="terms-container mb-6 max-h-96 overflow-y-auto p-4 border border-gray-200 rounded-lg">
+                            <h3 class="font-bold text-lg mb-2">Terms and Conditions — EcoExchange</h3>
+                            <p class="text-sm text-gray-600 mb-4">Last Updated: [Insert Date]</p>
+                            
+                            <p class="text-sm mb-4">Welcome to EcoExchange, an e-waste exchange platform that allows users to dispose, recycle, sell, or repair electronic waste responsibly while earning Eco Points. These Terms and Conditions ("Terms") govern your use of our website, platform, and services.</p>
+                            
+                            <h4 class="font-bold mt-4 mb-2">1. Acceptance of Terms</h4>
+                            <p class="text-sm mb-4">By accessing or using EcoExchange, you agree to comply with these Terms and our Privacy Policy. If you do not agree, you must not use this platform.</p>
+                            
+                            <h4 class="font-bold mt-4 mb-2">2. User Eligibility</h4>
+                            <p class="text-sm mb-4">You must be at least 18 years old to register. You agree to provide accurate information during registration, including valid phone number, email, address, PAN/Aadhaar, and other personal data for verification and service purposes. You are responsible for keeping your login credentials and EcoPIN secure.</p>
+                            
+                            <h4 class="font-bold mt-4 mb-2">3. Eco Points System</h4>
+                            <p class="text-sm mb-4">Users earn Eco Points for valid e-waste contributions based on type, weight, condition, and gas emissions data. Points are non-transferable, non-refundable, and subject to approval by EcoExchange upon verification. Eco Points may be converted into monetary value, donated, or redeemed as described on the platform. Fraudulent or duplicate entries will result in points being revoked and may lead to account suspension.</p>
+                            
+                            <h4 class="font-bold mt-4 mb-2">4. E-Waste Disposal & Product Listings</h4>
+                            <p class="text-sm mb-4">You agree to provide clear, real images of your waste and/or items with accurate details (e.g., category, weight, gas emissions, recyclability). Prohibited items include biohazardous waste, explosives, and any material deemed illegal or unsafe by national laws. All pick-up and disposal services are managed by verified personnel or registered volunteers. Users are responsible for ensuring safety during pickups.</p>
+                            
+                            <h4 class="font-bold mt-4 mb-2">5. Sales and Payments</h4>
+                            <p class="text-sm mb-4">Users may list items for sale or donation under respective categories (Recyclable, Repairable, Spare Parts). Sales transactions are subject to service fees and terms shown during checkout. EcoExchange is not liable for disputes between buyers and sellers unless proven through platform records. Payouts (from Eco Point redemptions or sales) require a valid PAN Card and bank account or UPI ID.</p>
+                            
+                            <h4 class="font-bold mt-4 mb-2">6. Volunteering</h4>
+                            <p class="text-sm mb-4">Volunteers must be verified and approved. Tasks may include waste collection, awareness campaigns, or technical repair work. EcoExchange does not provide employment; volunteering is optional and unpaid unless otherwise specified.</p>
+                            
+                            <h4 class="font-bold mt-4 mb-2">7. User Conduct</h4>
+                            <p class="text-sm mb-4">You agree not to: Misuse the platform for fraudulent activities, Upload harmful, illegal, or copyrighted materials, Attempt to tamper with other user accounts or backend systems.</p>
+                            
+                            <h4 class="font-bold mt-4 mb-2">8. Intellectual Property</h4>
+                            <p class="text-sm mb-4">All content on EcoExchange, including logos, text, icons, and UI elements, is owned by EcoExchange and may not be used without permission.</p>
+                            
+                            <h4 class="font-bold mt-4 mb-2">9. Termination</h4>
+                            <p class="text-sm mb-4">EcoExchange reserves the right to suspend or terminate any account that: Violates these Terms, Attempts to abuse the Eco Points system, Is inactive for over 12 months.</p>
+                            
+                            <h4 class="font-bold mt-4 mb-2">10. Limitation of Liability</h4>
+                            <p class="text-sm mb-4">EcoExchange is not liable for: Delays in waste pickup or delivery, Loss or damage of items during transport, Technical glitches or data loss beyond our control.</p>
+                            
+                            <h4 class="font-bold mt-4 mb-2">11. Changes to Terms</h4>
+                            <p class="text-sm mb-4">We may revise these Terms from time to time. Continued use after updates implies your acceptance of the changes.</p>
+                            
+                            <h4 class="font-bold mt-4 mb-2">12. Contact Us</h4>
+                            <p class="text-sm mb-4">If you have any questions or complaints, contact us at: 📧 support@ecoexchange.in 📍 Chennai, Tamil Nadu, India</p>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <div class="flex items-center h-5">
+                                    <input id="terms-checkbox" type="checkbox" class="focus:ring-emerald-500 h-4 w-4 text-emerald-600 border-gray-300 rounded" required>
+                                </div>
+                                <div class="ml-3 text-sm">
+                                    <label for="terms-checkbox" class="font-medium text-gray-700">I agree to the Terms and Conditions</label>
+                                    <p class="text-gray-500">You must agree to the terms to use EcoExchange</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="flex items-center h-5">
+                                    <input id="consent-checkbox" type="checkbox" class="focus:ring-emerald-500 h-4 w-4 text-emerald-600 border-gray-300 rounded" required>
+                                </div>
+                                <div class="ml-3 text-sm">
+                                    <label for="consent-checkbox" class="font-medium text-gray-700">I authorize EcoExchange to collect and verify my details for platform use and payouts</label>
+                                    <p class="text-gray-500">Your data will be handled according to our Privacy Policy</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-between mt-8">
+                            <button type="button" class="prev-section bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-3 px-6 rounded-lg transition duration-300" data-prev="payment">
+                                <i class="fas fa-arrow-left mr-2"></i> Back
+                            </button>
+                            <button type="submit" class="bg-emerald-500 hover:bg-emerald-600 text-white font-medium py-3 px-6 rounded-lg transition duration-300">
+                                Complete Sign Up <i class="fas fa-check ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            
+            <div class="text-center mt-6">
+                <p class="text-gray-600">
+                    Already have an account?
+                    <a href="signup.html" class="text-emerald-600 hover:text-emerald-800 font-medium">Sign in</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Form navigation
+            const formSections = document.querySelectorAll('.form-section-content');
+            const nextButtons = document.querySelectorAll('.next-section');
+            const prevButtons = document.querySelectorAll('.prev-section');
+            const progressSteps = document.querySelectorAll('.progress-step');
+            const progressBar = document.getElementById('progress-bar');
+            const currentStepDisplay = document.getElementById('current-step');
+            
+            let currentSection = 0;
+            const totalSections = formSections.length;
+            const sectionNames = ['basic', 'location', 'payment', 'legal'];
+            
+            // Initialize floating labels
+            const inputs = document.querySelectorAll('.input-field');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    const label = this.nextElementSibling;
+                    label.classList.add('text-emerald-600');
+                });
+                
+                input.addEventListener('blur', function() {
+                    if (!this.value) {
+                        const label = this.nextElementSibling;
+                        label.classList.remove('text-emerald-600');
+                    }
+                });
+                // Initialize labels for pre-filled fields
+                if (input.value) {
+                    const label = input.nextElementSibling;
+                    label.classList.add('text-emerald-600');
+                    label.style.transform = 'translateY(-24px) scale(0.85)';
+                }
+            });
+            // Next button functionality
+            nextButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const nextSection = this.dataset.next;
+                    navigateToSection(nextSection);
+                });
+            });
+            // Previous button functionality
+            prevButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const prevSection = this.dataset.prev;
+                    navigateToSection(prevSection);
+                });
+            });
+            function navigateToSection(sectionName) {
+                // Hide current section
+                formSections[currentSection].classList.remove('active');
+                // Update current section index
+                currentSection = sectionNames.indexOf(sectionName);
+                // Show new section
+                formSections[currentSection].classList.add('active');
+                // Update progress bar
+                updateProgress();
+            }
+            
+            function updateProgress() {
+                // Update progress steps
+                progressSteps.forEach((step, index) => {
+                    if (index < currentSection) {
+                        step.classList.remove('active');
+                        step.classList.add('completed');
+                    } else if (index === currentSection) {
+                        step.classList.add('active');
+                        step.classList.remove('completed');
+                    } else {
+                        step.classList.remove('active');
+                        step.classList.remove('completed');
+                    }
+                });
+                
+                // Update progress bar width
+                const progressPercentage = ((currentSection + 1) / totalSections) * 100;
+                progressBar.style.width = `${progressPercentage}%`;
+                
+                // Update current step display
+                currentStepDisplay.textContent = currentSection + 1;
+            }
+            // Form submission
+            const signupForm = document.getElementById('signupForm');
+            signupForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                // Here you would typically send the form data to your server
+                alert('Account created successfully! Redirecting to dashboard...');
+                // window.location.href = 'dashboard.html';
+            });
+        });
+    </script>
+</body>
+</html> 

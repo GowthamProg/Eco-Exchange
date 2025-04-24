@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up | EcoExchange</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 50%, #bbf7d0 100%);
+            min-height: 100vh;
+        }
+        
+        .auth-container {
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .auth-slider {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .auth-slide {
+            min-width: 100%;
+        }
+        
+        .input-field {
+            transition: all 0.3s ease;
+        }
+        
+        .input-field:focus {
+            box-shadow: 0 0 0 2px rgba(134, 239, 172, 0.5);
+        }
+        
+        .social-btn {
+            transition: all 0.3s ease;
+        }
+        
+        .social-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .or-divider {
+            position: relative;
+        }
+        
+        .or-divider::before, .or-divider::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 45%;
+            height: 1px;
+            background-color: #e5e7eb;
+        }
+        
+        .or-divider::before {
+            left: 0;
+        }
+        
+        .or-divider::after {
+            right: 0;
+        }
+        
+        .floating-label {
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+        
+        .input-field:focus + .floating-label,
+        .input-field:not(:placeholder-shown) + .floating-label {
+            transform: translateY(-24px) scale(0.85);
+            color: #22c55e;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        .floating-icon {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #86efac 0%, #4ade80 100%);
+        }
+        
+        .verification-steps {
+            counter-reset: step;
+        }
+        
+        .verification-step::before {
+            counter-increment: step;
+            content: counter(step);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: #dcfce7;
+            color: #22c55e;
+            font-weight: 600;
+            margin-right: 12px;
+        }
+        
+        .verification-step.active::before {
+            background-color: #22c55e;
+            color: white;
+        }
+        
+        .verification-step.completed::before {
+            background-color: #22c55e;
+            color: white;
+            content: "✓";
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+    <!-- Back Button -->
+    <a href="index.html" class="absolute top-4 left-4 text-emerald-600 hover:text-emerald-800 transition-colors duration-300">
+        <i class="fas fa-arrow-left text-xl"></i>
+        <span class="ml-2 font-medium">Back to Home</span>
+    </a>
+
+    <div class="auth-container w-full max-w-4xl bg-white rounded-2xl shadow-xl overflow-hidden">
+        <div class="auth-slider flex">
+            <!-- Login Slide -->
+            <div class="auth-slide flex flex-col md:flex-row">
+                <!-- Left Side - Graphic -->
+                <div class="hidden md:flex flex-col items-center justify-center w-1/2 gradient-bg p-8 text-white">
+                    <div class="text-center space-y-6">
+                        <div class="floating-icon">
+                            <i class="fas fa-user-shield text-6xl opacity-90"></i>
+                        </div>
+                        <h2 class="text-3xl font-bold">Welcome Back!</h2>
+                        <p class="text-emerald-100">To keep connected with us please login with your personal info</p>
+                        <button type="button" id="show-register" class="mt-6 px-8 py-2 border-2 border-white rounded-full text-white hover:bg-white hover:text-emerald-600 transition-all duration-300">
+                            Sign Up
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Right Side - Login Form -->
+                <div class="w-full md:w-1/2 p-10 flex flex-col justify-center">
+                    <div class="text-center mb-8">
+                        <h2 class="text-3xl font-bold text-gray-800">Sign In</h2>
+                        <p class="text-gray-500 mt-2">Enter your credentials to access your account</p>
+                    </div>
+                    
+                    <form class="space-y-5">
+                        <div class="relative">
+                            <input type="text" id="login-email" class="input-field w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-emerald-500" placeholder=" ">
+                            <label for="login-email" class="floating-label absolute left-4 top-3.5 text-gray-400">Email Address</label>
+                        </div>
+                        
+                        <div class="relative">
+                            <input type="password" id="login-password" class="input-field w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-emerald-500" placeholder=" ">
+                            <label for="login-password" class="floating-label absolute left-4 top-3.5 text-gray-400">Password</label>
+                        </div>
+                        
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <input type="checkbox" id="remember-me" class="h-4 w-4 text-emerald-600 focus:ring-emerald-500 border-gray-300 rounded">
+                                <label for="remember-me" class="ml-2 block text-sm text-gray-700">Remember me</label>
+                                </div>
+                            <a href="#" class="text-sm text-emerald-600 hover:text-emerald-800">Forgot password?</a>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-medium py-3 px-4 rounded-lg transition duration-300">
+                            Sign In
+                        </button>
+                        
+                        <div class="or-divider text-center text-sm text-gray-500 my-4">OR</div>
+                        
+                        <div class="grid grid-cols-2 gap-3">
+                            <button type="button" class="social-btn flex items-center justify-center py-2 px-4 border border-gray-200 rounded-lg hover:bg-gray-50">
+                                <i class="fab fa-google text-red-500 mr-2"></i>
+                                <span class="text-sm">Google</span>
+                            </button>
+                            <button type="button" class="social-btn flex items-center justify-center py-2 px-4 border border-gray-200 rounded-lg hover:bg-gray-50">
+                                <i class="fab fa-facebook-f text-blue-600 mr-2"></i>
+                                <span class="text-sm">Facebook</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Register Slide -->
+            <div class="auth-slide flex flex-col md:flex-row">
+                <!-- Left Side - Verification Steps -->
+                <div class="w-full md:w-1/2 p-10 flex flex-col justify-center">
+                    <div class="text-center mb-8">
+                        <h2 class="text-3xl font-bold text-gray-800">Account Verification</h2>
+                        <p class="text-gray-500 mt-2">Complete these steps to verify your account</p>
+                    </div>
+                    
+                    <div class="verification-steps space-y-8 mb-8">
+                        <div class="verification-step active flex items-start">
+                            <div>
+                                <h3 class="font-semibold text-gray-800">Basic Information</h3>
+                                <p class="text-sm text-gray-500 mt-1">Enter your name, email and password</p>
+                            </div>
+                        </div>
+                        
+                        <div class="verification-step flex items-start">
+                            <div>
+                                <h3 class="font-semibold text-gray-800">Email Verification</h3>
+                                <p class="text-sm text-gray-500 mt-1">Verify your email address</p>
+                            </div>
+                        </div>
+                        
+                        <div class="verification-step flex items-start">
+                            <div>
+                                <h3 class="font-semibold text-gray-800">Profile Setup</h3>
+                                <p class="text-sm text-gray-500 mt-1">Complete your profile information</p>
+                            </div>
+                        </div>
+                        
+                        <div class="verification-step flex items-start">
+                            <div>
+                                <h3 class="font-semibold text-gray-800">Security Check</h3>
+                                <p class="text-sm text-gray-500 mt-1">Set up security questions</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <a href="verify.html" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-medium py-3 px-4 rounded-lg transition duration-300 text-center">
+                        Continue to Verification
+                    </a>
+                    
+                    <div class="or-divider text-center text-sm text-gray-500 my-4">OR</div>
+                    
+                    <div class="grid grid-cols-2 gap-3">
+                        <button type="button" class="social-btn flex items-center justify-center py-2 px-4 border border-gray-200 rounded-lg hover:bg-gray-50">
+                            <i class="fab fa-apple text-gray-800 mr-2"></i>
+                            <span class="text-sm">Apple</span>
+                        </button>
+                        <button type="button" class="social-btn flex items-center justify-center py-2 px-4 border border-gray-200 rounded-lg hover:bg-gray-50">
+                            <i class="fab fa-twitter text-blue-400 mr-2"></i>
+                            <span class="text-sm">Twitter</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Right Side - Graphic -->
+                <div class="hidden md:flex flex-col items-center justify-center w-1/2 gradient-bg p-8 text-white">
+                    <div class="text-center space-y-6">
+                        <div class="floating-icon">
+                            <i class="fas fa-user-plus text-6xl opacity-90"></i>
+                        </div>
+                        <h2 class="text-3xl font-bold">Hello, Friend!</h2>
+                        <p class="text-emerald-100">Enter your personal details and start your journey with us</p>
+                        <button type="button" id="show-login" class="mt-6 px-8 py-2 border-2 border-white rounded-full text-white hover:bg-white hover:text-emerald-600 transition-all duration-300">
+                            Sign In
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const authSlider = document.querySelector('.auth-slider');
+            const showRegister = document.getElementById('show-register');
+            const showLogin = document.getElementById('show-login');
+            
+            showRegister.addEventListener('click', function() {
+                authSlider.style.transform = 'translateX(-100%)';
+            });
+            
+            showLogin.addEventListener('click', function() {
+                authSlider.style.transform = 'translateX(0)';
+            });
+            
+            // Add floating label functionality
+            const inputs = document.querySelectorAll('.input-field');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    const label = this.nextElementSibling;
+                    label.classList.add('text-emerald-600');
+                });
+                
+                input.addEventListener('blur', function() {
+                    if (!this.value) {
+                        const label = this.nextElementSibling;
+                        label.classList.remove('text-emerald-600');
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+        document.querySelector('form').addEventListener('submit', async function(e) {
+            e.preventDefault(); // Prevent default form submission
+        
+            const email = document.getElementById('login-email').value.trim();
+            const password = document.getElementById('login-password').value.trim();
+        
+            try {
+                console.log(email,password);
+                const response = await fetch('http://localhost:3000/login', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ email, password })
+                });
+        
+                const data = await response.json();
+        
+                if (response.ok) {
+                    alert('Login successful!');
+                    console.log('Token:', data.token);
+                    // Optionally, save token and redirect
+                    // localStorage.setItem('token', data.token);
+                    // window.location.href = '/dashboard.html';
+                } else {
+                    alert(data.message || 'Login failed');
+                }
+            } catch (error) {
+                console.error('Error during login:', error);
+                alert('Something went wrong. Try again later.');
+            }
+        });
+        </script>
+        
+</body>
+</html>

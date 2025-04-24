@@ -1,0 +1,89 @@
+.hero-gradient {
+    background: linear-gradient(135deg, #4ade80 0%, #3b82f6 100%);
+}
+
+/* Navigation Styles */
+nav {
+    background: transparent;
+    transition: background-color 0.3s ease;
+}
+
+nav.scrolled {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(8px);
+}
+
+.nav-link {
+    position: relative;
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 0.5rem 0;
+    transition: all 0.2s ease;
+}
+
+.nav-link:hover {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.nav-link.active {
+    color: #4f46e5;
+}
+
+/* Dropdown arrow styling */
+.nav-link i {
+    transition: transform 0.2s ease;
+}
+
+.nav-link:hover i {
+    transform: rotate(-180deg);
+}
+
+/* Button styling */
+.bg-blue-600 {
+    background-color: #4f46e5;
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: 0.625rem 1.25rem;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.bg-blue-600:hover {
+    background-color: #4338ca;
+    transform: translateY(-1px);
+}
+
+.group:hover .group-hover\:block {
+    display: block;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.points-popup {
+    display: none;
+    position: absolute;
+    z-index: 100;
+    width: 300px;
+    right: 0;
+    top: 100%;
+}
+
+.points-trigger:hover + .points-popup {
+    display: block;
+}
+
+.points-popup:hover {
+    display: block;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+} 

@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About E-Waste Exchange | Empowering Change Through E-Waste Exchange</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            /* Light green background */
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); /* green-50 to green-100 */
+            min-height: 100vh;
+            color: #1f2937; /* gray-800 */
+        }
+
+        .hero-section {
+            /* Keep image, change overlay to green gradient, text white */
+            background: linear-gradient(rgba(3, 105, 161, 0.7), rgba(5, 150, 105, 0.7)), url('/assets/images/about.jpg'); /* cyan-700/70 to emerald-600/70 */
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+
+        .eco-card {
+            transition: all 0.3s ease;
+            border-left: 4px solid #10b981; /* emerald-500 */
+            /* Use Tailwind classes for background now */
+        }
+
+        .eco-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.2); /* emerald-500 with opacity */
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .impact-stat {
+            /* Green gradient */
+            background: linear-gradient(135deg, #22c55e 0%, #10b981 100%); /* green-500 to emerald-500 */
+            color: white;
+        }
+
+        .nav-link {
+            position: relative;
+            /* Use Tailwind for colors */
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #10b981; /* emerald-500 */
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .active-nav::after {
+            width: 100%;
+        }
+
+        /* Remove glass-card style, use Tailwind directly */
+    </style>
+</head>
+<body class="bg-gradient-to-br from-green-50 to-green-100 text-gray-800">
+    <!-- Navbar will be injected by navbar.js -->
+    <div id="navbar"></div>
+
+    <!-- Hero Section -->
+    <div class="hero-section text-white">
+        <div class="max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8">
+            <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
+                Empowering Change Through E-Waste Exchange
+            </h1>
+            <p class="mt-6 max-w-3xl text-xl text-green-50">
+                Transforming e-waste from environmental burden to economic opportunity through our innovative digital marketplace.
+            </p>
+            <div class="mt-10 flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                <a href="#video" class="flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-green-700 bg-white hover:bg-green-50 md:py-4 md:text-lg md:px-10">
+                    <i class="fas fa-play-circle mr-2"></i> Watch Our Story
+                </a>
+                <a href="Volunteer.html" class="flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 md:py-4 md:text-lg md:px-10">
+                    <i class="fas fa-recycle mr-2"></i> Join the Movement
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Section -->
+    <div id="video" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                See the Impact of E-Waste
+            </h2>
+            <p class="mt-4 max-w-2xl text-xl text-gray-600 mx-auto">
+                Watch our field work on YouTube to see the reality of e-waste buildup and the urgent need for change.
+            </p>
+        </div>
+        
+        <div class="rounded-xl overflow-hidden shadow-xl bg-white">
+            <div class="video-container">
+                <iframe 
+                    title="E-Waste Documentary Series"
+                    width="100%" height="315"
+                    src="https://www.youtube.com/embed/MYjZkpGnHRc"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+        
+            <div class="bg-white p-6">
+                <div class="flex justify-between items-center">
+                    <h3 class="text-lg font-medium text-gray-900">Our E-Waste Documentary Series</h3>
+                    <a href="https://www.youtube.com/playlist?list=PLUrVGuqCc1tOB03z5h-Cqw2SXHbUsDDbY" target="_blank" class="inline-flex items-center text-green-600 hover:text-green-800">
+                        View Full Playlist
+                        <i class="fas fa-external-link-alt ml-2"></i>
+                    </a>
+                </div>
+                <p class="mt-2 text-sm text-gray-500">
+                    This video shows real-world situations, community feedback, and why this platform exists.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Why We Exist Section -->
+    <div class="bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div class="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
+                <div>
+                    <h2 class="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                        Why We Exist
+                    </h2>
+                    <p class="mt-4 text-lg text-gray-600">
+                        Every year, India generates over 3.2 million tonnes of e-waste, and less than 20% is formally recycled. Most ends up in landfills or is mishandled in informal sectors, leading to environmental pollution, health hazards, and loss of valuable materials.
+                    </p>
+                    <p class="mt-4 text-lg text-gray-600">
+                        We created E-Waste Exchange as a service-based digital marketplace to solve this problem by:
+                    </p>
+                    <ul class="mt-6 space-y-4">
+                        <li class="flex">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Giving people an easy and secure way to dispose of or sell their old electronics</span>
+                        </li>
+                        <li class="flex">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Encouraging repair over replace, saving both money and materials</span>
+                        </li>
+                        <li class="flex">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Incentivizing proper disposal with a token-to-cash reward system</span>
+                        </li>
+                        <li class="flex">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Building a trust-based connection between buyers, sellers, and recyclers</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="mt-12 lg:mt-0">
+                    <img class="rounded-lg shadow-xl" src="https://images.unsplash.com/photo-1581094271901-8022df4466f9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="E-waste recycling">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- What We Offer Section -->
+    <div class="bg-green-50 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                    What We Offer
+                </h2>
+                <p class="mt-4 max-w-2xl text-xl text-gray-600 mx-auto">
+                    Our comprehensive platform provides solutions for all your e-waste needs
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="eco-card bg-white p-6 rounded-lg shadow-md border-green-500">
+                    <div class="flex items-center justify-center h-12 w-12 rounded-md bg-green-100 text-green-600 mb-4">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-medium text-gray-900 mb-2">Buy &amp; Sell E-Waste</h3>
+                    <p class="text-gray-600">
+                        List your unused gadgets, damaged electronics, or spare parts in our marketplace.
+                    </p>
+                </div>
+                
+                <div class="eco-card bg-white p-6 rounded-lg shadow-md border-green-500">
+                    <div class="flex items-center justify-center h-12 w-12 rounded-md bg-green-100 text-green-600 mb-4">
+                        <i class="fas fa-tools text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-medium text-gray-900 mb-2">Repair-Focused Marketplace</h3>
+                    <p class="text-gray-600">
+                        Products with repair potential are highlighted and valued higher in our system.
+                    </p>
+                </div>
+                
+                <div class="eco-card bg-white p-6 rounded-lg shadow-md border-green-500">
+                    <div class="flex items-center justify-center h-12 w-12 rounded-md bg-green-100 text-green-600 mb-4">
+                        <i class="fas fa-coins text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-medium text-gray-900 mb-2">Disposal with Rewards</h3>
+                    <p class="text-gray-600">
+                        Dispose items responsibly and earn tokens that convert to real money.
+                    </p>
+                </div>
+                
+                <div class="eco-card bg-white p-6 rounded-lg shadow-md border-green-500">
+                    <div class="flex items-center justify-center h-12 w-12 rounded-md bg-green-100 text-green-600 mb-4">
+                        <i class="fas fa-shield-alt text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-medium text-gray-900 mb-2">Verified Interactions</h3>
+                    <p class="text-gray-600">
+                        We verify user profiles and provide chat support for genuine exchanges.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="mt-12 bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="p-6 sm:p-8">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 bg-green-100 p-3 rounded-full">
+                            <i class="fas fa-leaf text-green-600 text-2xl"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-lg font-medium text-gray-900">Impact Tracking</h3>
+                            <p class="text-gray-600">
+                                Know exactly how much e-waste you've saved from landfills through your actions on our platform.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Research Section -->
+    <div class="bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div class="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
+                <div class="order-last lg:order-first">
+                    <img class="rounded-lg shadow-xl" src="/assets/images/ewastes.jpeg" alt="Research data">
+                </div>
+                <div class="mt-12 lg:mt-0">
+                    <h2 class="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                        Backed by Research
+                    </h2>
+                    <p class="mt-4 text-lg text-gray-600">
+                        According to a joint report by UNEP, NITI Aayog, and the International Telecommunication Union, e-waste contains precious metals like gold, silver, and rare earth elements.
+                    </p>
+                    <p class="mt-4 text-lg text-gray-600">
+                        The improper disposal of e-waste is not only an environmental disaster but also a huge missed economic opportunity.
+                    </p>
+                    <p class="mt-4 text-lg text-gray-600">
+                        This platform is designed to align with the UN's Sustainable Development Goals (SDG 12 - Responsible Consumption and Production), promoting a circular economy by facilitating reuse, repair, and recycle.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Impact Stats -->
+    <div class="bg-green-50 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                    Our Impact in Numbers
+                </h2>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="impact-stat rounded-lg p-6 text-white text-center">
+                    <div class="text-4xl font-bold mb-2">3.2M+</div>
+                    <div class="text-lg">Tonnes of e-waste generated annually in India</div>
+                </div>
+                
+                <div class="impact-stat rounded-lg p-6 text-white text-center">
+                    <div class="text-4xl font-bold mb-2">20%</div>
+                    <div class="text-lg">Formally recycled e-waste currently</div>
+                </div>
+                
+                <div class="impact-stat rounded-lg p-6 text-white text-center">
+                    <div class="text-4xl font-bold mb-2">$1.5B</div>
+                    <div class="text-lg">Value of recoverable materials in India's e-waste</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vision Section -->
+    <div class="bg-green-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div class="text-center">
+                <i class="fas fa-lightbulb text-4xl text-green-300 mb-6"></i>
+                <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">
+                    Our Vision
+                </h2>
+                <p class="mt-4 max-w-2xl text-xl text-green-100 mx-auto">
+                    To become India's leading eco-tech platform where individuals and organizations can participate in sustainable e-waste solutions — conveniently, profitably, and responsibly.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-green-800">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-sm font-semibold text-green-200 tracking-wider uppercase">Company</h3>
+                    <ul class="mt-4 space-y-4">
+                        <li><a href="#" class="text-base text-green-100 hover:text-white">About</a></li>
+                        <li><a href="#" class="text-base text-green-100 hover:text-white">Team</a></li>
+                        <li><a href="#" class="text-base text-green-100 hover:text-white">Careers</a></li>
+                        <li><a href="#" class="text-base text-green-100 hover:text-white">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-sm font-semibold text-green-200 tracking-wider uppercase">Resources</h3>
+                    <ul class="mt-4 space-y-4">
+                        <li><a href="#" class="text-base text-green-100 hover:text-white">How It Works</a></li>
+                        <li><a href="#" class="text-base text-green-100 hover:text-white">Pricing</a></li>
+                        <li><a href="#" class="text-base text-green-100 hover:text-white">FAQs</a></li>
+                        <li><a href="#" class="text-base text-green-100 hover:text-white">Support</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-sm font-semibold text-green-200 tracking-wider uppercase">Legal</h3>
+                    <ul class="mt-4 space-y-4">
+                        <li><a href="#" class="text-base text-green-100 hover:text-white">Privacy</a></li>
+                        <li><a href="#" class="text-base text-green-100 hover:text-white">Terms</a></li>
+                        <li><a href="#" class="text-base text-green-100 hover:text-white">Cookie Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-sm font-semibold text-green-200 tracking-wider uppercase">Connect</h3>
+                    <ul class="mt-4 space-y-4">
+                        <li><a href="#" class="text-base text-green-100 hover:text-white">Contact Us</a></li>
+                        <li><a href="#" class="text-base text-green-100 hover:text-white">Twitter</a></li>
+                        <li><a href="#" class="text-base text-green-100 hover:text-white">Facebook</a></li>
+                        <li><a href="#" class="text-base text-green-100 hover:text-white">Instagram</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mt-12 border-t border-green-700 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="flex items-center">
+                        <i class="fas fa-recycle text-green-400 text-2xl mr-2"></i>
+                        <span class="text-xl font-bold text-white">E-Waste Exchange</span>
+                    </div>
+                    <p class="mt-4 md:mt-0 text-base text-green-200">
+                        &copy; 2023 E-Waste Exchange. All rights reserved.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/js/components/navbar.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            initNavbar();
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

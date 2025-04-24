@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoExchange India | Sell Your E-Waste Responsibly</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="/js/components/navbar.js"></script>
+    <script src="/js/sell.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif']
+                    },
+                    colors: {
+                        ecoGreen: '#10b981',
+                        ecoDark: '#1e272e',
+                        ecoBlue: '#0ea5e9',
+                        ecoYellow: '#fbbf24'
+                    }
+                }
+            }
+        };
+    </script>
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            min-height: 100vh;
+            color: #1f2937;
+        }
+
+        .hero-bg {
+            background-image: url('/assets/images/sell.jpg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            height: 500px;
+        }
+
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(16, 185, 129, 0.747), rgba(16, 185, 129, 0.56));
+        }
+
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 150px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .wave svg {
+            width: 100%;
+            height: 100%;
+            fill: currentColor;
+            transform: scaleX(1.5);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: white;
+            padding: 0 1rem;
+        }
+
+        .hero-content h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (min-width: 768px) {
+            .hero-content h1 {
+                font-size: 3.5rem;
+            }
+            .hero-content p {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Form Styles */
+        .form-container {
+            transition: all 0.3s ease;
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        .form-container:hover {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-field {
+            transition: all 0.3s ease;
+            border: 2px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+            width: 100%;
+        }
+
+        .input-field:focus {
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+            outline: none;
+        }
+
+        .button-primary {
+            transition: all 0.3s ease;
+            background-color: #10b981;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+        }
+
+        .button-primary:hover {
+            transform: translateY(-2px);
+            background-color: #059669;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Category Card Styles */
+        .category-card {
+            transition: all 0.3s ease;
+            border: 2px solid #e5e7eb;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            background-color: white;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border-color: #10b981;
+        }
+
+        .category-card.selected {
+            border-color: #10b981;
+            background-color: #f0fdf4;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .category-card .icon-container {
+            transition: all 0.3s ease;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            background-color: #dcfce7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+        }
+
+        .category-card:hover .icon-container,
+        .category-card.selected .icon-container {
+            transform: scale(1.1);
+            background-color: #bbf7d0;
+        }
+
+        /* Progress Steps */
+        .progress-step {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+            position: relative;
+            z-index: 1;
+        }
+
+        .progress-step.active {
+            background-color: #10b981;
+            color: white;
+        }
+
+        .progress-step.completed {
+            background-color: #059669;
+            color: white;
+        }
+
+        /* Form Sections */
+        .form-section {
+            padding: 2rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .form-section:last-child {
+            border-bottom: none;
+        }
+
+        /* Grid Layout */
+        .grid-layout {
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        /* Summary Card */
+        .summary-card {
+            background-color: #f8fafc;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid #e5e7eb;
+        }
+
+        .summary-card h3 {
+            color: #1f2937;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .summary-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Modal Styles */
+        .modal-container {
+            background-color: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            max-width: 32rem;
+            width: 90%;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-content {
+            background-color: #f8fafc;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body class="font-sans">
+    <!-- Navigation Bar -->
+    <div id="navbar"></div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            initNavbar();
+        });
+    </script>
+
+    <!-- Hero Section -->
+    <div class="hero-bg h-96 relative">
+        <div class="hero-content absolute inset-0 flex flex-col items-center justify-center">
+            <h1>Sell Your E-Waste Responsibly</h1>
+            <p>Get fair value for your old electronics while contributing to a cleaner environment</p>
+        </div>
+        <div class="wave text-emerald-50">
+            <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0,32L48,37.3C96,43,192,53,288,58.7C384,64,480,64,576,58.7C672,53,768,43,864,37.3C960,32,1056,32,1152,37.3C1248,43,1344,53,1392,58.7L1440,64L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z"/>
+            </svg>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="max-w-6xl mx-auto p-4 md:p-8">
+        <!-- Progress Steps -->
+        <div class="mb-8">
+            <div class="flex justify-between relative">
+                <div class="absolute top-1/2 left-0 right-0 h-1 bg-gray-200 -z-10"></div>
+                <div id="progress-bar" class="absolute top-1/2 left-0 h-1 bg-emerald-500 -z-10 transition-all duration-500" style="width: 0%"></div>
+                
+                <div class="progress-step active w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center font-medium">1</div>
+                <div class="progress-step w-10 h-10 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center font-medium">2</div>
+                <div class="progress-step w-10 h-10 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center font-medium">3</div>
+                <div class="progress-step w-10 h-10 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center font-medium">4</div>
+            </div>
+            <div class="flex justify-between mt-2 text-sm">
+                <span class="text-emerald-600 font-medium">Category</span>
+                <span class="text-gray-500">Product Details</span>
+                <span class="text-gray-500">Pickup Info</span>
+                <span class="text-gray-500">Payment</span>
+            </div>
+        </div>
+
+        <!-- Form Container -->
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+            <!-- Step 1: Category Selection -->
+            <div id="step-1" class="p-6 md:p-8">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6">Select E-Waste Category</h2>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <!-- Phones & Tablets -->
+<div class="category-card p-4" data-category="phones">
+    <div class="flex items-center mb-3">
+        <div class="icon-container w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 mr-3">
+            <i class="fas fa-mobile-alt text-lg"></i>
+        </div>
+        <h3 class="font-medium text-gray-800">Phones & Tablets</h3>
+    </div>
+    <p class="text-sm text-gray-500">Smartphones and tablets</p>
+</div>
+
+<!-- Laptops & PCs -->
+<div class="category-card p-4" data-category="laptops">
+    <div class="flex items-center mb-3">
+        <div class="icon-container w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 mr-3">
+            <i class="fas fa-laptop text-lg"></i>
+        </div>
+        <h3 class="font-medium text-gray-800">Laptops & PCs</h3>
+    </div>
+    <p class="text-sm text-gray-500">Computers and accessories</p>
+</div>
+
+<!-- Home Appliances -->
+<div class="category-card p-4" data-category="appliances">
+    <div class="flex items-center mb-3">
+        <div class="icon-container w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 mr-3">
+            <i class="fas fa-blender text-lg"></i>
+        </div>
+        <h3 class="font-medium text-gray-800">Home Appliances</h3>
+    </div>
+    <p class="text-sm text-gray-500">Mixers, AC, Microwave...</p>
+</div>
+
+<!-- Machinery & Tools -->
+<div class="category-card p-4" data-category="machinery">
+    <div class="flex items-center mb-3">
+        <div class="icon-container w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 mr-3">
+            <i class="fas fa-tools text-lg"></i>
+        </div>
+        <h3 class="font-medium text-gray-800">Machinery & Tools</h3>
+    </div>
+    <p class="text-sm text-gray-500">Industrial and power tools</p>
+</div>
+
+<!-- Vehicle Electronics -->
+<div class="category-card p-4" data-category="vehicle">
+    <div class="flex items-center mb-3">
+        <div class="icon-container w-10 h-10 rounded-full bg-red-100 flex items-center justify-center text-red-600 mr-3">
+            <i class="fas fa-car text-lg"></i>
+        </div>
+        <h3 class="font-medium text-gray-800">Vehicle Electronics</h3>
+    </div>
+    <p class="text-sm text-gray-500">Automotive electronic parts</p>
+</div>
+
+<!-- Toys & Games -->
+<div class="category-card p-4" data-category="toys">
+    <div class="flex items-center mb-3">
+        <div class="icon-container w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 mr-3">
+            <i class="fas fa-gamepad text-lg"></i>
+        </div>
+        <h3 class="font-medium text-gray-800">Toys & Games</h3>
+    </div>
+    <p class="text-sm text-gray-500">Electronic toys and games</p>
+</div>
+
+<!-- Medical Devices -->
+<div class="category-card p-4" data-category="medical">
+    <div class="flex items-center mb-3">
+        <div class="icon-container w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 mr-3">
+            <i class="fas fa-heartbeat text-lg"></i>
+        </div>
+        <h3 class="font-medium text-gray-800">Medical Devices</h3>
+    </div>
+    <p class="text-sm text-gray-500">Healthcare equipment</p>
+</div>
+
+<!-- Sensors & Monitoring -->
+<div class="category-card p-4" data-category="sensors">
+    <div class="flex items-center mb-3">
+        <div class="icon-container w-10 h-10 rounded-full bg-cyan-100 flex items-center justify-center text-cyan-600 mr-3">
+            <i class="fas fa-microchip text-lg"></i>
+        </div>
+        <h3 class="font-medium text-gray-800">Sensors & Monitoring</h3>
+    </div>
+    <p class="text-sm text-gray-500">Control systems and sensors</p>
+</div>
+
+<!-- Automatic Dispensers -->
+<div class="category-card p-4" data-category="dispensers">
+    <div class="flex items-center mb-3">
+        <div class="icon-container w-10 h-10 rounded-full bg-teal-100 flex items-center justify-center text-teal-600 mr-3">
+            <i class="fas fa-pump-soap text-lg"></i>
+        </div>
+        <h3 class="font-medium text-gray-800">Automatic Dispensers</h3>
+    </div>
+    <p class="text-sm text-gray-500">Sanitizer and vending machines</p>
+</div>
+
+<div class="flex justify-center">
+    <!-- Hazardous Materials -->
+    <div class="category-card p-4" data-category="hazardous">
+      <div class="flex items-center mb-3">
+        <div class="icon-container w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center text-yellow-600 mr-3">
+          <i class="fas fa-radiation-alt text-lg"></i>
+        </div>
+        <h3 class="font-medium text-gray-800">Hazardous Materials</h3>
+      </div>
+      <p class="text-sm text-gray-500">Batteries, capacitors, chemical storage, power banks</p>
+    </div>
+</div>
+           </div>
+                
+                <div class="flex justify-end mt-8">
+                    <button type="button" id="next-button" class="next-button px-6 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition flex items-center" disabled>
+                        Next <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Step 2: Product Details -->
+            <div id="step-2" class="p-6 md:p-8 hidden">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6">Product Details</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Product Name*</label>
+                            <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500" placeholder="e.g. iPhone 12 Pro Max">
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-sm font-semibold text-gray-800 mb-2">Condition Type <span class="text-red-500">*</span></label>
+                            <div class="grid grid-cols-3 gap-3">
+                                <button type="button" onclick="selectCondition('repairable')" class="condition-btn px-4 py-2 rounded-lg text-sm font-medium text-gray-700 bg-white border border-gray-300 shadow-sm hover:bg-emerald-50 hover:border-emerald-400 hover:text-emerald-600 transition-all duration-200">
+                                    Repairable
+                                </button>
+                                <button type="button" onclick="selectCondition('recyclable')" class="condition-btn px-4 py-2 rounded-lg text-sm font-medium text-gray-700 bg-white border border-gray-300 shadow-sm hover:bg-blue-50 hover:border-blue-400 hover:text-blue-600 transition-all duration-200">
+                                    Recyclable
+                                </button>
+                                <button type="button" onclick="selectCondition('parts')" class="condition-btn px-4 py-2 rounded-lg text-sm font-medium text-gray-700 bg-white border border-gray-300 shadow-sm hover:bg-yellow-50 hover:border-yellow-400 hover:text-yellow-600 transition-all duration-200">
+                                    Spare Parts
+                                </button>
+                            </div>
+                        </div>
+                        
+                        
+                        <div id="emission-details" class="mb-6 hidden fade-in">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Emission Details</label>
+                            <div class="space-y-3">
+                                <div>
+                                    <label class="text-xs text-gray-500">Weight (kg)</label>
+                                    <input type="number" class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="0.5">
+                                </div>
+                                <div>
+                                    <label class="text-xs text-gray-500">Contains Batteries?</label>
+                                    <select class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+                                        <option>No</option>
+                                        <option>Yes, removable</option>
+                                        <option>Yes, non-removable</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="text-xs text-gray-500">Hazardous Materials</label>
+                                    <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="e.g. Lead, Mercury">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Description*</label>
+                            <textarea rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500" placeholder="Provide details about the product condition, issues, accessories included, etc."></textarea>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Upload Images (Max 5)</label>
+                            <div id="dropzone" class="dropzone p-6 rounded-lg text-center cursor-pointer">
+                                <i class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-2"></i>
+                                <p class="text-sm text-gray-500">Drag & drop images here or click to browse</p>
+                                <input type="file" id="file-input" class="hidden" accept="image/*" multiple>
+                            </div>
+                            <div id="image-previews" class="mt-3 flex flex-wrap gap-2"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex justify-between mt-8">
+                    <button onclick="prevStep(2)" class="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition flex items-center">
+                        <i class="fas fa-arrow-left mr-2"></i> Back
+                    </button>
+                    <button onclick="nextStep(2)" class="px-6 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition flex items-center">
+                        Next <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Step 3: Pickup Information -->
+            <div id="step-3" class="p-6 md:p-8 hidden">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6">Pickup Information</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Your Information</label>
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <div class="flex items-center mb-2">
+                                    <i class="fas fa-user text-gray-400 mr-2"></i>
+                                    <span class="font-medium">Rahul Sharma</span>
+                                    <span class="ml-auto text-xs bg-emerald-100 text-emerald-800 px-2 py-1 rounded-full">Verified</span>
+                                </div>
+                                <div class="flex items-center mb-2">
+                                    <i class="fas fa-phone text-gray-400 mr-2"></i>
+                                    <span>+91 98765 43210</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-envelope text-gray-400 mr-2"></i>
+                                    <span>rahul.sharma@example.com</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Pickup Address*</label>
+                            <div class="bg-gray-50 p-4 rounded-lg mb-2">
+                                <div class="flex items-center mb-1">
+                                    <i class="fas fa-home text-gray-400 mr-2"></i>
+                                    <span>123, Green Park Apartments</span>
+                                </div>
+                                <div class="flex items-center mb-1">
+                                    <i class="fas fa-map-marker-alt text-gray-400 mr-2"></i>
+                                    <span>MG Road, Bangalore - 560001</span>
+                                </div>
+                            </div>
+                            <button class="text-sm text-emerald-600 hover:text-emerald-800 flex items-center">
+                                <i class="fas fa-edit mr-1"></i> Change Address
+                            </button>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Additional Pickup Instructions</label>
+                            <textarea rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="e.g. Call before coming, Security deposit required, etc."></textarea>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Preferred Pickup Date*</label>
+                            <input type="date" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Time Slot*</label>
+                            <div class="grid grid-cols-2 gap-2">
+                                <button class="time-slot-btn px-4 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-50">9 AM - 12 PM</button>
+                                <button class="time-slot-btn px-4 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-50">12 PM - 3 PM</button>
+                                <button class="time-slot-btn px-4 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-50">3 PM - 6 PM</button>
+                                <button class="time-slot-btn px-4 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-50">6 PM - 9 PM</button>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-emerald-50 p-4 rounded-lg border border-emerald-100">
+                            <h3 class="font-medium text-emerald-800 mb-2 flex items-center">
+                                <i class="fas fa-leaf mr-2"></i> Your Eco-Score
+                            </h3>
+                            <div class="flex items-center mb-2">
+                                <div class="w-full bg-gray-200 rounded-full h-2.5 mr-3">
+                                    <div id="eco-score-bar" class="bg-emerald-600 h-2.5 rounded-full" style="width: 75%"></div>
+                                </div>
+                                <span class="text-emerald-800 font-medium">75/100</span>
+                            </div>
+                            <p class="text-xs text-gray-600">Based on your product details, this item qualifies for our Green Recycling Program with maximum environmental benefits.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex justify-between mt-8">
+                    <button onclick="prevStep(3)" class="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition flex items-center">
+                        <i class="fas fa-arrow-left mr-2"></i> Back
+                    </button>
+                    <button onclick="nextStep(3)" class="px-6 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition flex items-center">
+                        Next <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Step 4: Payment Options -->
+            <div id="step-4" class="p-6 md:p-8 hidden">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6">Payment Options</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Expected Price (INR)*</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <span class="text-gray-500">₹</span>
+                                </div>
+                                <input type="number" class="w-full pl-8 pr-4 py-2 border border-gray-300 rounded-lg" placeholder="Enter expected amount">
+                            </div>
+                            <p class="text-xs text-gray-500 mt-1">Our team will review your listing and may suggest a different price based on market value.</p>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Payment Method*</label>
+                            <div class="space-y-2">
+                                <label class="payment-method flex items-center p-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
+                                    <input type="radio" name="payment" class="mr-3" checked>
+                                    <div class="flex-1">
+                                        <div class="flex items-center">
+                                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/UPI-Logo-vector.svg/1200px-UPI-Logo-vector.svg.png" class="h-5 mr-2">
+                                            <span>UPI Payment</span>
+                                        </div>
+                                        <p class="text-xs text-gray-500 mt-1">Instant transfer to any UPI ID</p>
+                                    </div>
+                                </label>
+                                
+                                <label class="payment-method flex items-center p-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
+                                    <input type="radio" name="payment" class="mr-3">
+                                    <div class="flex-1">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-credit-card text-gray-500 mr-2"></i>
+                                            <span>Credit/Debit Card</span>
+                                        </div>
+                                        <p class="text-xs text-gray-500 mt-1">Secure card payment</p>
+                                    </div>
+                                </label>
+                                
+                                <label class="payment-method flex items-center p-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
+                                    <input type="radio" name="payment" class="mr-3">
+                                    <div class="flex-1">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-university text-gray-500 mr-2"></i>
+                                            <span>Net Banking</span>
+                                        </div>
+                                        <p class="text-xs text-gray-500 mt-1">Direct bank transfer</p>
+                                    </div>
+                                </label>
+                                
+                                <label class="payment-method flex items-center p-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
+                                    <input type="radio" name="payment" class="mr-3">
+                                    <div class="flex-1">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-wallet text-gray-500 mr-2"></i>
+                                            <span>Digital Wallets</span>
+                                        </div>
+                                        <p class="text-xs text-gray-500 mt-1">Paytm, PhonePe, etc.</p>
+                                    </div>
+                                </label>
+                                
+                                <label class="payment-method flex items-center p-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
+                                    <input type="radio" name="payment" class="mr-3">
+                                    <div class="flex-1">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-money-bill-wave text-gray-500 mr-2"></i>
+                                            <span>Cash on Pickup</span>
+                                        </div>
+                                        <p class="text-xs text-gray-500 mt-1">Pay when we collect the item</p>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="bg-gray-50 p-5 rounded-lg border border-gray-200">
+                            <h3 class="font-medium text-gray-800 mb-4">Order Summary</h3>
+                            
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-600">Product Category</span>
+                                <span id="summary-category" class="font-medium">-</span>
+                            </div>
+                            
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-600">Condition</span>
+                                <span id="summary-condition" class="font-medium">-</span>
+                            </div>
+                            
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-600">Expected Price</span>
+                                <span id="summary-price" class="font-medium">₹0</span>
+                            </div>
+                            
+                            <div class="border-t border-gray-200 my-3"></div>
+                            
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-600">Pickup Date</span>
+                                <span id="summary-date" class="font-medium">-</span>
+                            </div>
+                            
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Time Slot</span>
+                                <span id="summary-time" class="font-medium">-</span>
+                            </div>
+                            
+                            <div class="border-t border-gray-200 my-3"></div>
+                            
+                            <div class="flex justify-between font-medium text-emerald-700">
+                                <span>Estimated Value</span>
+                                <span id="summary-value" class="text-lg">₹0</span>
+                            </div>
+                            
+                            <div class="mt-4 text-xs text-gray-500">
+                                <p>Final price may vary after inspection. Our team will contact you to confirm.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <label class="flex items-start">
+                                <input type="checkbox" class="mt-1 mr-2">
+                                <span class="text-sm text-gray-600">I agree to the <a href="#" class="text-emerald-600 hover:underline">Terms & Conditions</a> and confirm that all provided information is accurate.</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex justify-between mt-8">
+                    <button onclick="prevStep(4)" class="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition flex items-center">
+                        <i class="fas fa-arrow-left mr-2"></i> Back
+                    </button>
+                    <button onclick="submitForm()" class="px-6 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition flex items-center">
+                        Submit Listing <i class="fas fa-check ml-2"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Environmental Impact Section -->
+        <div class="mt-12 bg-white rounded-xl shadow-md overflow-hidden">
+            <div class="p-6 md:p-8">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Your Environmental Impact</h2>
+                <p class="text-gray-600 mb-6">By choosing to recycle your e-waste responsibly through EcoExchange India, you're contributing to:</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-emerald-50 p-4 rounded-lg">
+                        <div class="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-600 mb-3">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3 class="font-medium text-emerald-800 mb-1">Energy Savings</h3>
+                        <p class="text-sm text-gray-600">Recycling electronics saves energy needed to mine and process raw materials.</p>
+                    </div>
+                    
+                    <div class="bg-emerald-50 p-4 rounded-lg">
+                        <div class="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-600 mb-3">
+                            <i class="fas fa-globe-asia"></i>
+                        </div>
+                        <h3 class="font-medium text-emerald-800 mb-1">Reduced Pollution</h3>
+                        <p class="text-sm text-gray-600">Proper disposal prevents hazardous materials from entering landfills.</p>
+                    </div>
+                    
+                    <div class="bg-emerald-50 p-4 rounded-lg">
+                        <div class="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-600 mb-3">
+                            <i class="fas fa-recycle"></i>
+                        </div>
+                        <h3 class="font-medium text-emerald-800 mb-1">Circular Economy</h3>
+                        <p class="text-sm text-gray-600">Materials are recovered and reused in new products.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white mt-12">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">EcoExchange</h3>
+                    <p class="text-gray-600">Making e-waste management simple, sustainable, and rewarding.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="../index.html" class="text-gray-600 hover:text-emerald-600">Home</a></li>
+                        <li><a href="about.html" class="text-gray-600 hover:text-emerald-600">About</a></li>
+                        <li><a href="dispose.html" class="text-gray-600 hover:text-emerald-600">Dispose</a></li>
+                        <li><a href="sell.html" class="text-gray-600 hover:text-emerald-600">Sell</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Contact</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-center text-gray-600">
+                            <i class="fas fa-phone mr-2"></i> +91 98765 43210
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <i class="fas fa-envelope mr-2"></i> support@ecoexchange.in
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <i class="fas fa-map-marker-alt mr-2"></i> Bangalore, India
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Follow Us</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-600 hover:text-emerald-600">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-600 hover:text-emerald-600">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-600 hover:text-emerald-600">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-600 hover:text-emerald-600">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-200 text-center text-gray-600">
+                <p>&copy; 2023 EcoExchange. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl p-8 max-w-md w-full mx-4 text-center">
+            <div class="success-checkmark w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-600 text-3xl mx-auto mb-4">
+                <i class="fas fa-check"></i>
+            </div>
+            <h2 class="text-2xl font-semibold text-gray-800 mb-2">Listing Submitted!</h2>
+            <p class="text-gray-600 mb-4">Your e-waste listing has been successfully created.</p>
+            
+            <div class="bg-gray-50 p-4 rounded-lg mb-6 text-left">
+                <div class="flex justify-between mb-2">
+                    <span class="text-gray-600">Reference ID:</span>
+                    <span id="reference-id" class="font-mono font-medium">ECX-5A2B9C7D</span>
+                </div>
+                <div class="flex justify-between mb-2">
+                    <span class="text-gray-600">Pickup Date:</span>
+                    <span id="modal-date" class="font-medium">15 June 2023</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-gray-600">Time Slot:</span>
+                    <span id="modal-time" class="font-medium">3 PM - 6 PM</span>
+                </div>
+            </div>
+            
+            <p class="text-sm text-gray-500 mb-6">Our team will contact you within 24 hours to confirm the details.</p>
+            
+            <div class="flex flex-col sm:flex-row gap-3">
+                <button onclick="closeModal()" class="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition">
+                    Close
+                </button>
+                <button class="flex-1 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition flex items-center justify-center">
+                    Track Status <i class="fas fa-external-link-alt ml-2 text-xs"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <script>
+
+
+        let selectedCategory = null;
+        document.querySelectorAll('.category-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const categoryName = card.querySelector('h3').textContent.trim();
+                selectedCategory = categoryName;
+                console.log("Selected category:", selectedCategory);
+
+                // Optional: Highlight selected card
+                document.querySelectorAll('.category-card').forEach(c => c.classList.remove('ring', 'ring-offset-2', 'ring-blue-500'));
+                card.classList.add('ring', 'ring-offset-2', 'ring-blue-500');
+            });
+        });
+
+
+//         document.addEventListener("DOMContentLoaded", () => {
+//     const categoryCards = document.querySelectorAll('.category-card');
+//     const nextButton = document.getElementById('next-button');
+//     const progressSteps = document.querySelectorAll('.progress-step');
+//     const progressBar = document.getElementById('progress-bar');
+
+//     let selectedCategory = null;
+//     let currentStep = 1;
+
+//     // Highlight selected category
+//     categoryCards.forEach(card => {
+//         card.addEventListener('click', () => {
+//             categoryCards.forEach(c => c.classList.remove('border-2', 'border-emerald-500', 'bg-emerald-50'));
+//             card.classList.add('border-2', 'border-emerald-500', 'bg-emerald-50');
+//             selectedCategory = card.dataset.category;
+//             nextButton.disabled = false;
+//         });
+//     });
+
+//     nextButton.addEventListener('click', () => {
+//         if (!selectedCategory) return;
+
+//         // Move to next step
+//         if (currentStep < progressSteps.length) {
+//             progressSteps[currentStep].classList.remove('bg-gray-200', 'text-gray-600');
+//             progressSteps[currentStep].classList.add('bg-emerald-600', 'text-white');
+//             currentStep++;
+
+//             const progressWidth = ((currentStep - 1) / (progressSteps.length - 1)) * 100;
+//             progressBar.style.width = progressWidth + '%';
+
+//             // You can now load the next section like step-2
+//             document.getElementById('step-1').style.display = 'none';
+//             // Make sure you have #step-2 HTML ready and just show it here
+//             const step2 = document.getElementById('step-2');
+//             if (step2) step2.style.display = 'block';
+//         }
+//     });
+// });
+let currentStep = 1;
+    //let selectedCategory = null;
+
+    const steps = document.querySelectorAll('[id^="step-"]');
+    const progressSteps = document.querySelectorAll('.progress-step');
+    const progressBar = document.getElementById('progress-bar');
+    const nextButton = document.getElementById('next-button');
+
+    // Handle category selection and enable "Next" button
+    document.querySelectorAll('.category-card').forEach(card => {
+        card.addEventListener('click', () => {
+            document.querySelectorAll('.category-card').forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+            selectedCategory = card.dataset.category;
+            nextButton.disabled = false;
+        });
+    });
+
+    // Show specific step
+    function showStep(step) {
+        steps.forEach((s, i) => {
+            s.style.display = i === step - 1 ? 'block' : 'none';
+        });
+
+        progressSteps.forEach((circle, i) => {
+            if (i < step - 1) {
+                circle.classList.add('completed');
+                circle.classList.remove('active');
+            } else if (i === step - 1) {
+                circle.classList.add('active');
+                circle.classList.remove('completed');
+            } else {
+                circle.classList.remove('active', 'completed');
+            }
+        });
+
+        const percent = ((step - 1) / (progressSteps.length - 1)) * 100;
+        progressBar.style.width = percent + '%';
+
+        currentStep = step;
+    }
+
+    // Go to next step
+    function nextStep(step) {
+        if (step >= steps.length) return;
+        showStep(step + 1);
+    }
+
+    // Go to previous step
+    function prevStep(step) {
+        if (step <= 1) return;
+        showStep(step - 1);
+    }
+
+    // First next button (Category selection)
+    nextButton.addEventListener('click', () => {
+        if (selectedCategory) {
+            showStep(2);
+        }
+    });
+
+    // Assign globally so it works with inline HTML onclick
+    window.nextStep = nextStep;
+    window.prevStep = prevStep;
+
+    </script>
+    
+</body>
+</html>

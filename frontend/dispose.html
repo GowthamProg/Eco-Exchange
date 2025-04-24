@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Waste Disposal Form | EcoExchange</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif']
+                    },
+                    colors: {
+                        ecoGreen: '#10b981',
+                        ecoDark: '#1e272e',
+                        ecoBlue: '#0ea5e9',
+                        ecoYellow: '#fbbf24'
+                    }
+                }
+            }
+        };
+    </script>
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #E8FFF1 0%, #E8FFF1 100%);
+            min-height: 100vh;
+            color: #1f2937;
+        }
+
+        .progress-bar {
+            transition: width 0.5s ease-in-out;
+        }
+        .file-upload input[type="file"] {
+            display: none;
+        }
+        .file-upload-label {
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .file-upload-label:hover {
+            transform: translateY(-2px);
+        }
+        #previewContainer img {
+            max-height: 150px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .eco-points-badge {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .progress-bar {
+            width: 0%;
+            transition: width 0.5s ease-in-out;
+        }
+
+        .hero-bg {
+            background-image: url('/assets/images/dispose.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Popup Styles */
+        #ecoPointsPopup {
+            transition: opacity 0.3s ease-in-out;
+        }
+        #ecoPointsPopup.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        #ecoPointsPopup.flex {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .popup-content {
+            transform: scale(0.95);
+            transition: transform 0.3s ease-in-out;
+        }
+        #ecoPointsPopup.flex .popup-content {
+            transform: scale(1);
+        }
+    </style>
+</head>
+<body class="font-sans">
+    <!-- Navigation Bar -->
+    <div id="navbar"></div>
+
+    <!-- Hero Section -->
+    <div id="hero"></div>
+
+    <!-- Eco Points Popup -->
+    <div id="ecoPointsPopup" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
+        <div class="popup-content bg-white rounded-xl p-8 max-w-2xl mx-4 relative">
+            <button type="button" onclick="hideEcoPointsPopup()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700" aria-label="Close popup">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+            <h2 class="text-2xl font-bold text-emerald-600 mb-4">About Eco Points</h2>
+            <div class="space-y-4">
+                <div class="flex items-start">
+                    <i class="fas fa-leaf text-emerald-500 mt-1 mr-3"></i>
+                    <div>
+                        <h3 class="font-semibold text-gray-800">What are Eco Points?</h3>
+                        <p class="text-gray-600">Eco Points are rewards you earn for contributing to a sustainable future. Every item you dispose of responsibly earns you points based on its environmental impact.</p>
+                    </div>
+                </div>
+                <div class="flex items-start">
+                    <i class="fas fa-gift text-emerald-500 mt-1 mr-3"></i>
+                    <div>
+                        <h3 class="font-semibold text-gray-800">How to Earn Points</h3>
+                        <ul class="list-disc list-inside text-gray-600 ml-6">
+                            <li>Disposing of items in good condition</li>
+                            <li>Providing detailed environmental impact information</li>
+                            <li>Properly handling hazardous materials</li>
+                            <li>Completing the disposal process</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="flex items-start">
+                    <i class="fas fa-trophy text-emerald-500 mt-1 mr-3"></i>
+                    <div>
+                        <h3 class="font-semibold text-gray-800">Redeeming Points</h3>
+                        <p class="text-gray-600">Use your Eco Points to get discounts on future purchases, donate to environmental causes, or exchange for exclusive rewards.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="min-h-screen pt-24">
+        <!-- Main Content -->
+        <main class="container mx-auto px-4 py-8">
+            <div class="max-w-4xl mx-auto">
+                <!-- Progress Bar -->
+                <div class="mb-8">
+                    <h2 class="text-xl font-semibold text-ecoDark mb-2">E-Waste Disposal Form</h2>
+                    <div class="w-full bg-gray-200 rounded-full h-4">
+                        <div class="progress-bar bg-emerald-500 h-4 rounded-full" id="formProgress"></div>
+                    </div>
+                    <div class="flex justify-between mt-2 text-sm text-gray-600">
+                        <span>0%</span>
+                        <span>100%</span>
+                    </div>
+                </div>
+
+                <!-- Form Sections -->
+                <form id="ewasteForm" class="bg-white/90 backdrop-blur-md rounded-xl shadow-md p-6">
+                    <!-- Section 1: E-Waste Details -->
+                    <div class="form-section" id="section1">
+                        <h3 class="text-lg font-semibold text-ecoDark mb-4 border-b pb-2">
+                            <i class="fas fa-laptop-house mr-2"></i>E-Waste Details
+                        </h3>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2" for="ewasteType">Type of E-Waste</label>
+                            <select id="ewasteType" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500" required>
+                                <option value="" disabled selected>Select e-waste type</option>
+                                <option value="computer">Computers/Laptops</option>
+                                <option value="mobile">Mobile Phones</option>
+                                <option value="tv">Televisions</option>
+                                <option value="appliance">Household Appliances</option>
+                                <option value="battery">Batteries</option>
+                                <option value="other">Other Electronic Waste</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2" for="ewasteWeight">Weight (kg)</label>
+                            <div class="relative">
+                                <input type="number" id="ewasteWeight" min="0.1" step="0.1" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500" placeholder="e.g. 2.5" required>
+                                <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                                    <span class="text-gray-500">kg</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">Upload Photos of E-Waste</label>
+                            <div class="file-upload">
+                                <label for="ewastePhotos" class="file-upload-label bg-gray-100 hover:bg-gray-200 border-2 border-dashed border-gray-300 rounded-lg p-8 flex flex-col items-center justify-center cursor-pointer">
+                                    <i class="fas fa-camera text-3xl text-gray-400 mb-2"></i>
+                                    <span class="text-gray-600 font-medium">Click to upload photos</span>
+                                    <span class="text-gray-500 text-sm">(Max 5 photos, 5MB each)</span>
+                                </label>
+                                <input type="file" id="ewastePhotos" accept="image/*" multiple>
+                            </div>
+                            <div id="previewContainer" class="mt-4 flex flex-wrap"></div>
+                        </div>
+                        <div class="flex justify-end">
+                            <button type="button" class="next-btn bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-300">
+                                Next <i class="fas fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Section 2: Environmental Impact -->
+                    <div class="form-section hidden" id="section2">
+                        <h3 class="text-lg font-semibold text-ecoDark mb-4 border-b pb-2">
+                            <i class="fas fa-leaf mr-2"></i>Environmental Impact
+                        </h3>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">Estimated Gas Emissions Prevented</label>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <label class="block text-gray-600 mb-1 text-sm" for="co2">CO₂ (Carbon Dioxide)</label>
+                                    <div class="relative">
+                                        <input type="number" id="co2" min="0" step="0.1" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500" placeholder="0.0" required>
+                                        <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                                            <span class="text-gray-500">kg</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <label class="block text-gray-600 mb-1 text-sm" for="co">CO (Carbon Monoxide)</label>
+                                    <div class="relative">
+                                        <input type="number" id="co" min="0" step="0.1" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500" placeholder="0.0" required>
+                                        <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                                            <span class="text-gray-500">kg</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <label class="block text-gray-600 mb-1 text-sm" for="otherGas">Other Harmful Gases</label>
+                                    <div class="relative">
+                                        <input type="number" id="otherGas" min="0" step="0.1" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500" placeholder="0.0" required>
+                                        <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                                            <span class="text-gray-500">kg</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2" for="hazardousMaterials">Contains Hazardous Materials?</label>
+                            <select id="hazardousMaterials" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500" required>
+                                <option value="" disabled selected>Select option</option>
+                                <option value="yes">Yes (e.g. lead, mercury, cadmium)</option>
+                                <option value="no">No hazardous materials</option>
+                                <option value="unsure">Not sure</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2" for="condition">Condition of E-Waste</label>
+                            <select id="condition" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500" required>
+                                <option value="" disabled selected>Select condition</option>
+                                <option value="working">Fully Working</option>
+                                <option value="partial">Partially Working</option>
+                                <option value="nonworking">Not Working</option>
+                                <option value="damaged">Physically Damaged</option>
+                            </select>
+                        </div>
+                        <div class="flex justify-between">
+                            <button type="button" class="prev-btn bg-gray-300 hover:bg-gray-400 text-gray-800 px-6 py-2 rounded-lg font-medium transition-colors duration-300">
+                                <i class="fas fa-arrow-left mr-2"></i> Back
+                            </button>
+                            <button type="button" class="next-btn bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-300">
+                                Next <i class="fas fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Section 3: User Details -->
+                    <div class="form-section hidden" id="section3">
+                        <h3 class="text-lg font-semibold text-ecoDark mb-4 border-b pb-2">
+                            <i class="fas fa-user-circle mr-2"></i>Your Details
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <div>
+                                <label class="block text-gray-700 mb-2" for="fullName">Full Name</label>
+                                <input type="text" id="fullName" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500" required>
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 mb-2" for="email">Email</label>
+                                <input type="email" id="email" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500" required>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <div>
+                                <label class="block text-gray-700 mb-2" for="phone">Phone Number</label>
+                                <input type="tel" id="phone" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500" required>
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 mb-2" for="idProof">ID Proof Number</label>
+                                <input type="text" id="idProof" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500" placeholder="Aadhar, Passport, etc." required>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2" for="address">Full Address</label>
+                            <textarea id="address" rows="3" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500" required></textarea>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">Preferred Disposal Method</label>
+                            <div class="space-y-2">
+                                <div class="flex items-center">
+                                    <input type="radio" id="pickup" name="disposalMethod" value="pickup" class="mr-2" required>
+                                    <label for="pickup" class="text-gray-700">Schedule Pickup</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="radio" id="dropoff" name="disposalMethod" value="dropoff" class="mr-2" required>
+                                    <label for="dropoff" class="text-gray-700">Drop-off at Collection Center</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <div class="flex items-center">
+                                <input type="checkbox" id="terms" class="mr-2" required>
+                                <label for="terms" class="text-gray-700">I agree to the terms and conditions</label>
+                            </div>
+                        </div>
+                        <div class="flex justify-between mt-6">
+                            <button type="button" class="prev-btn bg-gray-300 hover:bg-gray-400 text-gray-800 px-6 py-2 rounded-lg font-medium transition-colors duration-300">
+                                <i class="fas fa-arrow-left mr-2"></i> Back
+                            </button>
+                            <button type="submit" class="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-300">
+                                Submit <i class="fas fa-check ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <!-- Eco Points Section -->
+                <div class="mt-8 bg-white/90 backdrop-blur-md rounded-xl shadow-md p-6">
+                    <h3 class="text-lg font-semibold text-ecoDark mb-4">
+                        <i class="fas fa-leaf mr-2"></i>Estimated Eco Points
+                    </h3>
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-600">Based on your e-waste details:</p>
+                            <ul class="list-disc list-inside text-gray-600 mt-2">
+                                <li>Weight contribution: <span id="weightPoints">0</span> points</li>
+                                <li>Environmental impact: <span id="impactPoints">0</span> points</li>
+                                <li>Hazardous materials handling: <span id="hazardPoints">0</span> points</li>
+                            </ul>
+                        </div>
+                        <div class="eco-points-badge bg-emerald-100 px-6 py-4 rounded-xl text-center">
+                            <p class="text-emerald-600 font-semibold text-lg">Total Eco Points</p>
+                            <p class="text-emerald-700 text-3xl font-bold" id="totalPoints">0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <div id="footer"></div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+        <div class="bg-white/90 backdrop-blur-md rounded-xl p-8 max-w-md w-full mx-4">
+            <div class="text-center">
+                <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-emerald-500">
+                    <i class="fas fa-check text-white text-xl"></i>
+                </div>
+                <h3 class="text-lg font-medium text-gray-900 mt-3">Disposal Request Submitted!</h3>
+                <div class="mt-4">
+                    <p class="text-sm text-gray-500">
+                        Thank you for your responsible e-waste disposal. You've earned
+                        <span class="font-bold text-emerald-500" id="awardedPoints">0</span> Eco Points!
+                    </p>
+                </div>
+                <div class="mt-6">
+                    <button type="button" id="modalClose" class="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-300">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Global popup functions
+        window.showEcoPointsPopup = function() {
+            const popup = document.getElementById('ecoPointsPopup');
+            popup.classList.remove('hidden');
+            popup.classList.add('flex');
+        }
+
+        window.hideEcoPointsPopup = function() {
+            const popup = document.getElementById('ecoPointsPopup');
+            popup.classList.add('hidden');
+            popup.classList.remove('flex');
+        }
+    </script>
+    <script src="/js/components/navbar.js"></script>
+    <script src="/js/components/footer.js"></script>
+    <script src="/js/components/hero.js"></script>
+    <script src="/js/components/dispose-form.js"></script>
+    <script>
+        // Initialize components
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize navbar
+            const navbar = document.getElementById('navbar');
+            if (navbar) {
+                initNavbar();
+            }
+
+            // Initialize hero section
+            const hero = document.getElementById('hero');
+            if (hero) {
+                initHero();
+            }
+
+            // Initialize footer
+            const footer = document.getElementById('footer');
+            if (footer) {
+                initFooter();
+            }
+
+            // Add event listener for closing popup when clicking outside
+            const ecoPointsPopup = document.getElementById('ecoPointsPopup');
+            if (ecoPointsPopup) {
+                ecoPointsPopup.addEventListener('click', (e) => {
+                    if (e.target === ecoPointsPopup) {
+                        hideEcoPointsPopup();
+                    }
+                });
+            }
+
+            // Form progress tracking
+            const formProgress = document.getElementById('formProgress');
+            const formSections = document.querySelectorAll('.form-section');
+            let currentSection = 0;
+
+            function updateProgress() {
+                const progress = ((currentSection + 1) / formSections.length) * 100;
+                formProgress.style.width = `${progress}%`;
+            }
+
+            // Next button functionality
+            document.querySelectorAll('.next-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    if (currentSection < formSections.length - 1) {
+                        formSections[currentSection].classList.add('hidden');
+                        currentSection++;
+                        formSections[currentSection].classList.remove('hidden');
+                        updateProgress();
+                    }
+                });
+            });
+
+            // Previous button functionality
+            document.querySelectorAll('.prev-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    if (currentSection > 0) {
+                        formSections[currentSection].classList.add('hidden');
+                        currentSection--;
+                        formSections[currentSection].classList.remove('hidden');
+                        updateProgress();
+                    }
+                });
+            });
+
+            // File upload preview
+            const fileInput = document.getElementById('ewastePhotos');
+            const previewContainer = document.getElementById('previewContainer');
+
+            fileInput.addEventListener('change', () => {
+                previewContainer.innerHTML = '';
+                const files = fileInput.files;
+
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+                    if (file.type.startsWith('image/')) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            const img = document.createElement('img');
+                            img.src = e.target.result;
+                            previewContainer.appendChild(img);
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                }
+            });
+
+            // Form submission
+            const ewasteForm = document.getElementById('ewasteForm');
+            ewasteForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                // Here you would typically send the form data to your backend
+                alert('Your e-waste disposal request has been submitted successfully!');
+                ewasteForm.reset();
+                currentSection = 0;
+                formSections.forEach(section => section.classList.add('hidden'));
+                formSections[0].classList.remove('hidden');
+                updateProgress();
+            });
+        });
+    </script>
+</body>
+</html> 
