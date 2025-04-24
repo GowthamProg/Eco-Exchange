@@ -38,7 +38,7 @@
         }
 
         .hero-bg {
-            background-image: url('/assets/images/sell.jpg');
+            background-image: url('./assets/images/sell.jpg');
             background-size: cover;
             background-position: center;
             position: relative;
@@ -459,18 +459,18 @@
                     <div>
                         <div class="mb-6">
                             <label class="block text-sm font-medium text-gray-700 mb-1">Product Name*</label>
-                            <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500" placeholder="e.g. iPhone 12 Pro Max">
+                            <input type="text" id="productName" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500" placeholder="e.g. iPhone 12 Pro Max">
                         </div>
                         <div class="mb-6">
                             <label class="block text-sm font-semibold text-gray-800 mb-2">Condition Type <span class="text-red-500">*</span></label>
                             <div class="grid grid-cols-3 gap-3">
-                                <button type="button" onclick="selectCondition('repairable')" class="condition-btn px-4 py-2 rounded-lg text-sm font-medium text-gray-700 bg-white border border-gray-300 shadow-sm hover:bg-emerald-50 hover:border-emerald-400 hover:text-emerald-600 transition-all duration-200">
+                                <button type="button" onclick="selectCondition('repairable')" value="repairable" class="condition-btn px-4 py-2 rounded-lg text-sm font-medium text-gray-700 bg-white border border-gray-300 shadow-sm hover:bg-emerald-50 hover:border-emerald-400 hover:text-emerald-600 transition-all duration-200">
                                     Repairable
                                 </button>
-                                <button type="button" onclick="selectCondition('recyclable')" class="condition-btn px-4 py-2 rounded-lg text-sm font-medium text-gray-700 bg-white border border-gray-300 shadow-sm hover:bg-blue-50 hover:border-blue-400 hover:text-blue-600 transition-all duration-200">
+                                <button type="button" onclick="selectCondition('recyclable')" value="recyclable" class="condition-btn px-4 py-2 rounded-lg text-sm font-medium text-gray-700 bg-white border border-gray-300 shadow-sm hover:bg-blue-50 hover:border-blue-400 hover:text-blue-600 transition-all duration-200">
                                     Recyclable
                                 </button>
-                                <button type="button" onclick="selectCondition('parts')" class="condition-btn px-4 py-2 rounded-lg text-sm font-medium text-gray-700 bg-white border border-gray-300 shadow-sm hover:bg-yellow-50 hover:border-yellow-400 hover:text-yellow-600 transition-all duration-200">
+                                <button type="button" onclick="selectCondition('parts')" value="parts" class="condition-btn px-4 py-2 rounded-lg text-sm font-medium text-gray-700 bg-white border border-gray-300 shadow-sm hover:bg-yellow-50 hover:border-yellow-400 hover:text-yellow-600 transition-all duration-200">
                                     Spare Parts
                                 </button>
                             </div>
@@ -482,11 +482,11 @@
                             <div class="space-y-3">
                                 <div>
                                     <label class="text-xs text-gray-500">Weight (kg)</label>
-                                    <input type="number" class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="0.5">
+                                    <input type="number" id="weight" class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="0.5">
                                 </div>
                                 <div>
                                     <label class="text-xs text-gray-500">Contains Batteries?</label>
-                                    <select class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+                                    <select class="w-full px-4 py-2 border border-gray-300 rounded-lg" id="containsBatteries">
                                         <option>No</option>
                                         <option>Yes, removable</option>
                                         <option>Yes, non-removable</option>
@@ -494,7 +494,7 @@
                                 </div>
                                 <div>
                                     <label class="text-xs text-gray-500">Hazardous Materials</label>
-                                    <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="e.g. Lead, Mercury">
+                                    <input type="text" id="hazardousMaterials" class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="e.g. Lead, Mercury">
                                 </div>
                             </div>
                         </div>
@@ -503,7 +503,7 @@
                     <div>
                         <div class="mb-6">
                             <label class="block text-sm font-medium text-gray-700 mb-1">Description*</label>
-                            <textarea rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500" placeholder="Provide details about the product condition, issues, accessories included, etc."></textarea>
+                            <textarea rows="4" id="productDescription" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500" placeholder="Provide details about the product condition, issues, accessories included, etc."></textarea>
                         </div>
                         
                         <div class="mb-6">
@@ -522,7 +522,7 @@
                     <button onclick="prevStep(2)" class="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition flex items-center">
                         <i class="fas fa-arrow-left mr-2"></i> Back
                     </button>
-                    <button onclick="nextStep(2)" class="px-6 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition flex items-center">
+                    <button onclick="nextStep(2)" id ="nextButton2" class="px-6 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition flex items-center">
                         Next <i class="fas fa-arrow-right ml-2"></i>
                     </button>
                 </div>
@@ -572,23 +572,23 @@
                         
                         <div class="mb-6">
                             <label class="block text-sm font-medium text-gray-700 mb-1">Additional Pickup Instructions</label>
-                            <textarea rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="e.g. Call before coming, Security deposit required, etc."></textarea>
+                            <textarea rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg" id="picupinstructions" placeholder="e.g. Call before coming, Security deposit required, etc."></textarea>
                         </div>
                     </div>
                     
                     <div>
                         <div class="mb-6">
                             <label class="block text-sm font-medium text-gray-700 mb-1">Preferred Pickup Date*</label>
-                            <input type="date" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+                            <input type="date" id="pickupdate" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
                         </div>
                         
                         <div class="mb-6">
                             <label class="block text-sm font-medium text-gray-700 mb-1">Time Slot*</label>
                             <div class="grid grid-cols-2 gap-2">
-                                <button class="time-slot-btn px-4 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-50">9 AM - 12 PM</button>
-                                <button class="time-slot-btn px-4 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-50">12 PM - 3 PM</button>
-                                <button class="time-slot-btn px-4 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-50">3 PM - 6 PM</button>
-                                <button class="time-slot-btn px-4 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-50">6 PM - 9 PM</button>
+                                <button id="slot-1" value="6 AM - 9 AM" class="time-slot-btn px-4 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-50">6 AM - 9 AM</button>
+                                <button id="slot-2" value="9 AM - 12 PM" class="time-slot-btn px-4 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-50">9 AM - 12 PM</button>
+                                <button id="slot-3" value="12 PM - 3 PM" class="time-slot-btn px-4 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-50">12 PM - 3 PM</button>
+                                <button id="slot-4" value="3 PM - 6 PM"  class="time-slot-btn px-4 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-50">3 PM - 6 PM</button>
                             </div>
                         </div>
                         
@@ -611,7 +611,7 @@
                     <button onclick="prevStep(3)" class="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition flex items-center">
                         <i class="fas fa-arrow-left mr-2"></i> Back
                     </button>
-                    <button onclick="nextStep(3)" class="px-6 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition flex items-center">
+                    <button onclick="nextStep(3)" id="nextButton3" class="px-6 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition flex items-center">
                         Next <i class="fas fa-arrow-right ml-2"></i>
                     </button>
                 </div>
@@ -629,7 +629,7 @@
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <span class="text-gray-500">₹</span>
                                 </div>
-                                <input type="number" class="w-full pl-8 pr-4 py-2 border border-gray-300 rounded-lg" placeholder="Enter expected amount">
+                                <input type="number" id="expectedPrice" class="w-full pl-8 pr-4 py-2 border border-gray-300 rounded-lg" placeholder="Enter expected amount">
                             </div>
                             <p class="text-xs text-gray-500 mt-1">Our team will review your listing and may suggest a different price based on market value.</p>
                         </div>
@@ -751,7 +751,7 @@
                     <button onclick="prevStep(4)" class="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition flex items-center">
                         <i class="fas fa-arrow-left mr-2"></i> Back
                     </button>
-                    <button onclick="submitForm()" class="px-6 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition flex items-center">
+                    <button onclick="submitForm()" id="nextButton4" class="px-6 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition flex items-center">
                         Submit Listing <i class="fas fa-check ml-2"></i>
                     </button>
                 </div>
@@ -886,19 +886,90 @@
     </div>
     <script>
 
-
+    
         selectedCategory = null;
         document.querySelectorAll('.category-card').forEach(card => {
             card.addEventListener('click', () => {
                 categoryName = card.querySelector('h3').textContent.trim();
                 selectedCategory = categoryName;
                 console.log("Selected category:", selectedCategory);
-                // console.log(selectedCategory);
-                // Optional: Highlight selected card
                 document.querySelectorAll('.category-card').forEach(c => c.classList.remove('ring', 'ring-offset-2', 'ring-blue-500'));
                 card.classList.add('ring', 'ring-offset-2', 'ring-blue-500');
             });
         });
+
+        let selectedProductName = null;
+        selectedCondition = null;
+        const buttons = document.querySelectorAll('.select-btn');
+
+        let IInextButton = document.getElementById('nextButton2');
+
+        let weight = null;
+        let containsBatteries = null;
+        let hazardousMaterials = null;
+
+        let providedDescription=null;
+
+        IInextButton.addEventListener('click', () => {
+        selectedProductName = document.getElementById('productName').value.trim();
+        document.getElementById('nextButton2');
+        buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+        // Remove active class from all buttons
+        buttons.forEach(b => b.classList.remove('active'));
+
+        // Add active class to the clicked button
+        btn.classList.add('active');
+
+        // Store selected product name
+        selectedCondition = btn.value;
+        
+    });
+    });
+        providedDescription = document.getElementById('productDescription').value.trim();
+
+        console.log("Selected product name:", selectedProductName);
+        console.log("Selected condition:", selectedCondition);
+        
+        if(selectedCondition === 'recyclable') 
+        {
+            weight = document.getElementById('weight').value.trim();
+            containsBatteries = document.getElementById('containsBatteries').value.trim();
+            hazardousMaterials = document.getElementById('hazardousMaterials').value.trim();
+            console.log("Weight:", weight);
+            console.log("Contains Batteries:", containsBatteries);
+            console.log("Hazardous Materials:", hazardousMaterials);
+        }
+        console.log("Description:", providedDescription);
+    });
+
+        let picupdate=null; 
+        let picupinstructions = null;
+        selectedTimeSlot = null;
+        let nextButton3 = document.getElementById('nextButton3');
+
+       document.querySelectorAll('.time-slot-btn').forEach(button => {
+    button.addEventListener('click', () => {
+        document.querySelectorAll('.time-slot-btn').forEach(b => b.classList.remove('bg-emerald-100', 'border-emerald-500'));
+        button.classList.add('bg-emerald-100', 'border-emerald-500');
+        selectedTimeSlot = button.value;
+      });
+    });
+        nextButton3.addEventListener('click', () => {
+            picupdate= document.getElementById('pickupdate').value.trim();
+            picupinstructions= document.getElementById('picupinstructions').value.trim();
+            console.log("Selected picup date : ",picupdate );
+            console.log("picupinstructions : ",picupinstructions);
+            console.log("Selected time slot:", selectedTimeSlot || "None");
+        });
+    
+        let expectedAmount = null;
+        let nextButton4 = document.getElementById('nextButton4');
+        nextButton4.addEventListener('click', () => {
+            expectedAmount = document.getElementById('expectedPrice').value.trim();
+            console.log("Expected Price:", expectedAmount);
+        });
+        
 
     currentStep = 1;
     const steps = document.querySelectorAll('[id^="step-"]');
@@ -915,6 +986,8 @@
             nextButton.disabled = false;
         });
     });
+
+
 
     // Show specific step
     function showStep(step) {
