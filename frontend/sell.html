@@ -7,8 +7,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="/js/components/navbar.js"></script>
-    <script src="/js/sell.js"></script>
+    <script src="./js/components/navbar.js"></script>
+    <script src="./js/sell.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -900,49 +900,7 @@
             });
         });
 
-
-//         document.addEventListener("DOMContentLoaded", () => {
-//     const categoryCards = document.querySelectorAll('.category-card');
-//     const nextButton = document.getElementById('next-button');
-//     const progressSteps = document.querySelectorAll('.progress-step');
-//     const progressBar = document.getElementById('progress-bar');
-
-//     let selectedCategory = null;
-//     let currentStep = 1;
-
-//     // Highlight selected category
-//     categoryCards.forEach(card => {
-//         card.addEventListener('click', () => {
-//             categoryCards.forEach(c => c.classList.remove('border-2', 'border-emerald-500', 'bg-emerald-50'));
-//             card.classList.add('border-2', 'border-emerald-500', 'bg-emerald-50');
-//             selectedCategory = card.dataset.category;
-//             nextButton.disabled = false;
-//         });
-//     });
-
-//     nextButton.addEventListener('click', () => {
-//         if (!selectedCategory) return;
-
-//         // Move to next step
-//         if (currentStep < progressSteps.length) {
-//             progressSteps[currentStep].classList.remove('bg-gray-200', 'text-gray-600');
-//             progressSteps[currentStep].classList.add('bg-emerald-600', 'text-white');
-//             currentStep++;
-
-//             const progressWidth = ((currentStep - 1) / (progressSteps.length - 1)) * 100;
-//             progressBar.style.width = progressWidth + '%';
-
-//             // You can now load the next section like step-2
-//             document.getElementById('step-1').style.display = 'none';
-//             // Make sure you have #step-2 HTML ready and just show it here
-//             const step2 = document.getElementById('step-2');
-//             if (step2) step2.style.display = 'block';
-//         }
-//     });
-// });
-let currentStep = 1;
-    //let selectedCategory = null;
-
+    let currentStep = 1;
     const steps = document.querySelectorAll('[id^="step-"]');
     const progressSteps = document.querySelectorAll('.progress-step');
     const progressBar = document.getElementById('progress-bar');
