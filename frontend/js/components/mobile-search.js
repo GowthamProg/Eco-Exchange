@@ -22,7 +22,7 @@ function initMobileSearch() {
 
             <!-- Mobile Navigation -->
             <nav class="space-y-6">
-                <a href="index.html" class="block text-white text-lg py-2">Home</a>
+                <a href="/frontend/index.html" class="block text-white text-lg py-2">Home</a>
                 <div class="mobile-dropdown">
                     <button class="flex items-center justify-between w-full text-white text-lg py-2">
                         Categories
@@ -57,10 +57,10 @@ function initMobileSearch() {
 
                     <!-- Mobile Auth Buttons -->
                     <div class="space-y-3">
-                        <a href="signin.html" class="block w-full text-center text-white border border-white/20 px-4 py-2 rounded-full hover:bg-white/10 transition duration-300">
+                        <a href="/frontend/signin.html" class="block w-full text-center text-white border border-white/20 px-4 py-2 rounded-full hover:bg-white/10 transition duration-300">
                             Sign In
                         </a>
-                        <a href="signup.html" class="block w-full text-center bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-full transition duration-300">
+                        <a href="/frontend/signup.html" class="block w-full text-center bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-full transition duration-300">
                             Sign Up
                         </a>
                     </div>

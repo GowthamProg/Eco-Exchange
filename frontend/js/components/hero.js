@@ -72,10 +72,10 @@ function initHomeHero(hero) {
         <section class="relative min-h-screen overflow-hidden">
             <!-- Background Slideshow -->
             <div class="absolute inset-0 bg-slideshow">
-                <div class="slide active" style="background-image: url('../assets/images/slide 1.jpg');"></div>
-                <div class="slide" style="background-image: url('../assets/images/slide 2.jpg');"></div>
-                <div class="slide" style="background-image: url('../assets/images/slide 3.jpg');"></div>
-                <div class="slide" style="background-image: url('../assets/images/slide 4.jpg');"></div>
+                <div class="slide active" style="background-image: url('/frontend/assets/images/slide 1.jpg');"></div>
+                <div class="slide" style="background-image: url('/frontend/assets/images/slide 2.jpg');"></div>
+                <div class="slide" style="background-image: url('/frontend/assets/images/slide 3.jpg');"></div>
+                <div class="slide" style="background-image: url('/frontend/assets/images/slide 4.jpg');"></div>
             </div>
             <!-- Overlay with teal to light green gradient -->
             <div class="absolute inset-0" style="background: linear-gradient(180deg, #008B8B 0%, #009B8B 30%, #00AB8B 50%, #00CC9B 70%, #00DDBB 100%);opacity: 0.75;"></div>
@@ -86,10 +86,10 @@ function initHomeHero(hero) {
                         <h1 class="text-4xl md:text-5xl font-bold mb-4 text-white">Give Your E-Waste A Second Life</h1>
                         <p class="text-xl mb-6 text-white/90">Join our community to recycle, repair, or reuse electronic waste responsibly. Earn rewards for your eco-friendly actions!</p>
                         <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-5">
-                            <a href="sell.html" class="bg-white text-emerald-600 px-6 py-3 rounded-full font-bold hover:bg-emerald-50 transition duration-300 inline-flex items-center">
+                            <a href="/frontend/sell.html" class="bg-white text-emerald-600 px-6 py-3 rounded-full font-bold hover:bg-emerald-50 transition duration-300 inline-flex items-center">
                                 Sell Your Items <i class="fas fa-arrow-right ml-2"></i>
                             </a>
-                            <a href="about.html" class="border-2 border-white text-white px-6 py-3 rounded-full font-bold hover:bg-white/10 transition duration-300 inline-flex items-center">
+                            <a href="/frontend/about.html" class="border-2 border-white text-white px-6 py-3 rounded-full font-bold hover:bg-white/10 transition duration-300 inline-flex items-center">
                                 Learn More
                             </a>
                         </div>
@@ -157,7 +157,7 @@ function initHomeHero(hero) {
 function initDisposeHero(hero) {
     hero.innerHTML = `
         <section class="relative h-[500px] w-full">
-            <div class="absolute inset-0" style="background: linear-gradient(rgba(3, 105, 161, 0.7), rgba(5, 150, 105, 0.7)), url('../assets/images/dispose.jpg'); background-size: cover; background-position: center;"></div>
+            <div class="absolute inset-0" style="background: linear-gradient(rgba(3, 105, 161, 0.7), rgba(5, 150, 105, 0.7)), url('/frontend/assets/images/dispose.jpg'); background-size: cover; background-position: center;"></div>
             <div class="relative container mx-auto px-4 h-full flex items-center pt-20">
                 <div class="max-w-xl">
                     <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Responsible E-Waste Disposal</h1>

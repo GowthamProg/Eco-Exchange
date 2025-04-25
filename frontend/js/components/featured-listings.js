@@ -5,7 +5,7 @@ const allProducts = [
         title: "MacBook Pro 14\" (2021)",
         description: "M1 Pro chip, 16GB RAM, 512GB SSD. Excellent condition with original box and accessories.",
         images: [
-            "../assets/images/mac.jpg?text=MacBook+Front",
+            "./assets/images/mac.jpg?text=MacBook+Front",
             ],
         recyclingCategory: "Repairable",
         productCategory: "Laptops & PCs",
@@ -34,7 +34,7 @@ const allProducts = [
         title: "Lithium Battery Pack",
         description: "High-capacity lithium battery pack from electric scooter. Needs proper disposal.",
         images: [
-            "../assets/images/lith.jpg?text=Battery+Pack"
+            "./assets/images/lith.jpg?text=Battery+Pack"
         ],
         recyclingCategory: "Hazardous",
         productCategory: "Hazardous Materials",
@@ -63,7 +63,7 @@ const allProducts = [
         title: "Sony CRT Television",
         description: "32-inch CRT TV from 2005. No longer working but contains valuable recyclable materials.",
         images: [
-            "../assets/images/crt.jpg?text=CRT+TV"
+            "./assets/images/crt.jpg?text=CRT+TV"
         ],
         recyclingCategory: "Recyclable",
         productCategory: "Home Appliances",

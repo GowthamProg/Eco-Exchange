@@ -174,9 +174,9 @@ function initNavbar() {
                 <div class="hidden md:flex items-center space-x-4">
                     <!-- Navigation Links -->
                     <div class="nav-links-container">
-                        <a href="index.html" class="text-white hover:text-emerald-200 font-medium transform hover:scale-105 transition-all duration-300">Home</a>
-                        <a href="about.html" class="text-white hover:text-emerald-200 font-medium transform hover:scale-105 transition-all duration-300">About</a>
-                        <a href="dispose.html" class="text-white hover:text-emerald-200 font-medium transform hover:scale-105 transition-all duration-300">Dispose</a>
+                        <a href="/frontend/index.html" class="text-white hover:text-emerald-200 font-medium transform hover:scale-105 transition-all duration-300">Home</a>
+                        <a href="/frontend/about.html" class="text-white hover:text-emerald-200 font-medium transform hover:scale-105 transition-all duration-300">About</a>
+                        <a href="/frontend/dispose.html" class="text-white hover:text-emerald-200 font-medium transform hover:scale-105 transition-all duration-300">Dispose</a>
                        </div>
 
                     <!-- Search Bar -->
@@ -203,7 +203,7 @@ function initNavbar() {
                                 </div>
                             </div>
                         </div>
-                        <a href="cart.html" class="nav-item">
+                        <a href="/frontend/cart.html" class="nav-item">
                             <i class="fas fa-shopping-cart text-white"></i>
                             <span class="nav-label text-white">Cart</span>
                         </a>
@@ -225,7 +225,7 @@ function initNavbar() {
                                     <h4 class="font-bold text-lg mb-2 text-gray-800">Welcome to EcoExchange</h4>
                                     <p class="text-gray-600 text-sm mb-4">Sign in to access your profile, track orders, and manage listings.</p>
                                     <div class="space-y-2">
-                                        <a href="signup.html" class="block w-full bg-white border border-emerald-500 text-emerald-500 text-center px-4 py-2 rounded-full text-sm hover:bg-emerald-50 transition-colors duration-300">
+                                        <a href="/frontend/signup.html" class="block w-full bg-white border border-emerald-500 text-emerald-500 text-center px-4 py-2 rounded-full text-sm hover:bg-emerald-50 transition-colors duration-300">
                                             Create Account
                                         </a>
                                     </div>
