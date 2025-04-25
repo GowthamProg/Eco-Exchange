@@ -487,5 +487,67 @@
             });
         });
     </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const finalSubmitButton = document.querySelector('[data-next="legal"]'); // Or use a final submit button's id if you have one
+        
+        finalSubmitButton.addEventListener('click', async() => {
+            // Basic Details
+            const fullName = document.getElementById('full-name').value.trim();
+            const username = document.getElementById('username').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const confirmPassword = document.getElementById('confirm-password').value.trim();
+    
+            // Location & Identity
+            const address = document.getElementById('address').value.trim();
+            const city = document.getElementById('city').value.trim();
+            const pincode = document.getElementById('pincode').value.trim();
+            const state = document.getElementById('state').value.trim();
+            const country = document.getElementById('country').value;
+            const aadhaar = document.getElementById('aadhaar').value.trim();
+            const pan = document.getElementById('pan').value.trim();
+            const dob = document.getElementById('dob').value;
+            const gender = document.getElementById('gender').value;
+    
+            // Payment & Security
+            const upi = document.getElementById('upi').value.trim();
+            const accountNumber = document.getElementById('account-number').value.trim();
+            const accountName = document.getElementById('account-name').value.trim();
+            const ifsc = document.getElementById('ifsc').value.trim();
+            const bankName = document.getElementById('bank-name').value.trim();
+            const ecopin = document.getElementById('ecopin').value.trim();
+    
+            // You can now either log or send the data to the server
+            const userData = {fullName,username,email,phone,password,confirmPassword,address,city,pincode,
+                state,country,aadhaar,pan,dob,gender,upi,accountNumber,accountName,ifsc,bankName,ecopin };
+    
+            console.log("User signup data:", userData);
+    
+            // Optionally send this to the server
+            try {
+            const response = await fetch('http://localhost:3000/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(userData)
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+                console.log('✅ Response saved:', result);
+                alert("Registration successful!");
+            } else {
+                console.log('❌ Response not saved:', result);
+                alert("Something went wrong, try again.");
+            }
+        } catch (error) {
+            console.error('🚨 Error sending data:', error);
+        }
+        });
+    });
+    </script>
+    
 </body>
 </html> 

@@ -921,10 +921,9 @@
         nextButton4.addEventListener('click', async() => {
             setTimeout(async()=>{
                 console.log("Final: ",selectedCategory001, selectedProductName, selectedCondition, weight, containsBatteries, hazardousMaterials, providedDescription, picupdate, picupinstructions, selectedTimeSlot, expectedAmount);
-                const dataToSend = {category: selectedCategory001,productName: selectedProductName,condition: selectedCondition,
+                const dataToSend = {id: localStorage.getItem("userId"),category: selectedCategory001,productName: selectedProductName,condition: selectedCondition,
                 weight: weight,containsBatteries: containsBatteries,hazardousMaterials: hazardousMaterials,description: providedDescription,
                 pickupDate: picupdate,pickupInstructions: picupinstructions,timeSlot: selectedTimeSlot,expectedAmount: expectedAmount};
-
                 try {
                 const response = await fetch('http://localhost:3000/ewasteform', {
                 method: 'POST',
@@ -933,7 +932,7 @@
                 });
 
             const result = await response.json();
-            if(result.ok)
+            if(response.ok) 
                 console.log('response saved: ', result);
             else 
                 console.log('response not saved :', result);

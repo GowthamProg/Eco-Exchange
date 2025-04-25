@@ -321,11 +321,14 @@
                 const data = await response.json();
         
                 if (response.ok) {
-                    alert('Login successful!');
-                    console.log('Token:', data.token);
-                    // Optionally, save token and redirect
-                    // localStorage.setItem('token', data.token);
-                    // window.location.href = '/dashboard.html';
+                    console.log("Login successful!");
+                    console.log("User ID:", data.id);
+                    console.log("Username:", data.username);
+
+                    // Store in localStorage or use accordingly
+                    localStorage.setItem("userId", data.id);
+                    localStorage.setItem("username", data.username);
+                    alert("Login sucessfull");
                 } else {
                     alert(data.message || 'Login failed');
                 }
@@ -335,6 +338,5 @@
             }
         });
         </script>
-        
 </body>
 </html>
